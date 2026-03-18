@@ -193,13 +193,55 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .btn-outline{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:11px 22px;border-radius:9px;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--ink);transition:all .14s}
 .btn-outline:hover{background:var(--paper)}
 
-@media(max-width:600px){
-  .landing-hero,.role-grid,.form-topbar,.form-nav,.landing-footer{padding-left:18px;padding-right:18px}
-  .form-body{padding:28px 18px 100px}
-  .field-row{grid-template-columns:1fr}
-  .score-btn .score-lbl{display:none}
+@media(max-width:768px){
+  #auth-screen{padding:16px;align-items:flex-start;padding-top:48px}
+  .auth-card,.link-sent-card{padding:32px 24px;border-radius:16px}
+  .auth-title{font-size:24px}
+  .auth-input,.auth-btn{font-size:16px;padding:14px 16px}
+  .landing-hero{padding:40px 20px 32px}
+  .hero-title{font-size:36px}
+  .hero-sub{font-size:15px;margin-bottom:32px}
+  .role-grid{grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 48px}
+  .role-card{padding:20px 16px;border-radius:14px}
+  .role-name{font-size:17px}
+  .role-desc{font-size:11px}
+  .landing-footer{padding:16px 20px;gap:8px;flex-direction:column}
+  .user-chip{font-size:11px}
+  .form-topbar{padding:0 16px;height:52px}
+  .topbar-title{font-size:13px}
+  .topbar-sub{display:none}
+  .form-body{padding:28px 16px 110px}
+  .step-title{font-size:26px}
+  .step-desc{font-size:13px;margin-bottom:24px}
   .member-grid{grid-template-columns:1fr}
-  .auth-card,.link-sent-card{padding:32px 24px}
+  .member-card{padding:12px 14px}
+  .member-info-name{font-size:14px}
+  .dimension-card{border-radius:12px;margin-bottom:14px}
+  .dim-header{padding:14px 16px 10px}
+  .dim-name{font-size:14px}
+  .dim-sub{font-size:11px}
+  .score-row{padding:0 16px 14px;gap:5px}
+  .score-btn{padding:10px 2px;border-radius:8px}
+  .score-btn .score-num{font-size:18px}
+  .score-btn .score-lbl{display:none}
+  .dim-notes{padding:0 16px 14px}
+  .dim-anchor{padding:0 16px}
+  .dimension-card.scored .dim-anchor{padding-bottom:12px}
+  .field-row{grid-template-columns:1fr}
+  .field input,.field textarea,.open-q textarea{font-size:16px}
+  .open-q{padding:18px 16px}
+  .form-nav{padding:10px 16px}
+  .btn{padding:12px 18px;font-size:13px}
+  .nav-center{font-size:12px}
+  .nav-score-num{font-size:18px}
+  .score-legend{gap:6px}
+  .legend-item{font-size:11px}
+  .completion-wrap{padding:48px 20px}
+  .completion-title{font-size:30px}
+  .score-reveal-num{font-size:42px}
+  .action-row{flex-direction:column;align-items:stretch}
+  .anon-banner,.selected-banner{font-size:12px}
+  .landing-hero,.form-topbar,.form-nav,.landing-footer{padding-left:16px;padding-right:16px}
 }
 </style>
 </head>
@@ -300,7 +342,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 
 <script>
 // ═══════════════ CONFIG ═══════════════
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw8gZUA4YAy-DkMZ855TjKmc3aq9a-5eiuWccbTFglKDeDCe614Y-nT8_f9UHxrxjh0WA/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw4SkVhx0LQcsukymgfQlAgIT2FyZRoiF-lUZQ1wqMZ5D_gf1IvtofpSyMxsJMwCa2s/exec';
 
 // ═══════════════ ORG DATA ═══════════════
 // Each person: email, name, role, reportsTo, function
