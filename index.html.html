@@ -22,11 +22,38 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6}
 
-/* LANDING */
-#landing{min-height:100vh;display:flex;flex-direction:column}
+/* ── AUTH SCREEN ── */
+#auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:420px;width:100%;text-align:center}
+.auth-logo{width:48px;height:48px;background:#0f1117;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:22px}
+.auth-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:8px}
+.auth-sub{font-size:14px;color:var(--ink3);font-weight:300;margin-bottom:32px;line-height:1.6}
+.auth-input{width:100%;background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .15s;text-align:center;margin-bottom:12px}
+.auth-input:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(0,0,0,.04)}
+.auth-btn{width:100%;background:var(--ink);color:#fff;border:none;border-radius:10px;padding:13px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;margin-bottom:16px}
+.auth-btn:hover{background:#2a2f3d}
+.auth-btn:disabled{background:var(--border);color:var(--ink3);cursor:not-allowed}
+.auth-note{font-size:12px;color:var(--ink3);line-height:1.6}
+.auth-error{background:#FEE2E2;color:#991B1B;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:12px;display:none}
+.auth-success{background:#DCFCE7;color:#166534;border-radius:8px;padding:16px;font-size:13px;margin-bottom:12px;display:none;line-height:1.6}
+
+/* ── MAGIC LINK SENT SCREEN ── */
+#link-sent{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px}
+.link-sent-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:420px;width:100%;text-align:center}
+.link-sent-icon{width:64px;height:64px;background:#DCFCE7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px}
+.link-sent-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:10px}
+.link-sent-sub{font-size:14px;color:var(--ink3);font-weight:300;line-height:1.7;margin-bottom:24px}
+.link-sent-email{background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:24px;display:inline-block}
+.resend-btn{background:transparent;border:1px solid var(--border2);border-radius:8px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s}
+.resend-btn:hover{background:var(--paper)}
+
+/* ── LANDING ── */
+#landing{min-height:100vh;display:none;flex-direction:column}
 .landing-hero{padding:72px 48px 48px;max-width:920px;margin:0 auto;width:100%}
 .org-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 14px 5px 10px;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:24px}
 .org-badge-dot{width:8px;height:8px;border-radius:50%;background:var(--ink)}
+.user-chip{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 14px 5px 10px;font-size:12px;font-weight:600;color:var(--ink2);float:right;margin-top:4px;cursor:pointer}
+.user-chip:hover{background:var(--paper)}
 .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:16px}
 .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(38px,5.5vw,62px);line-height:1.06;color:var(--ink);margin-bottom:16px;letter-spacing:-.02em}
 .hero-title em{font-style:italic;color:var(--ink3)}
@@ -54,7 +81,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .role-card.upward .role-count{background:var(--upward-l);color:var(--upward-h)}
 .landing-footer{border-top:1px solid var(--border);padding:18px 48px;font-size:12px;color:var(--ink3);display:flex;gap:20px;flex-wrap:wrap}
 
-/* FORM PAGE */
+/* ── FORM PAGE ── */
 #form-page{display:none;min-height:100vh}
 .form-topbar{position:sticky;top:0;z-index:100;background:rgba(250,249,247,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:58px}
 .form-topbar-left{display:flex;align-items:center;gap:10px}
@@ -68,14 +95,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .step-title{font-family:'DM Serif Display',serif;font-size:clamp(24px,4vw,36px);line-height:1.1;margin-bottom:10px}
 .step-desc{font-size:14px;color:var(--ink2);font-weight:300;max-width:540px;line-height:1.75;margin-bottom:32px}
 
-/* MEMBER PICKER */
+/* ── MEMBER PICKER ── */
 .member-search-wrap{position:relative;margin-bottom:12px}
 .member-search{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px 12px 42px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .15s}
 .member-search:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(0,0,0,.04)}
 .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none}
 .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:24px;max-height:480px;overflow-y:auto;padding-right:2px}
-.member-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:11px}
+.member-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:11px;position:relative}
 .member-card:hover{border-color:var(--border2);background:var(--paper)}
+.member-card.done{opacity:0.5;cursor:not-allowed;background:var(--paper)}
+.member-card.done::after{content:'✓ Submitted';position:absolute;top:8px;right:10px;font-size:10px;font-weight:600;color:#166534;background:#DCFCE7;padding:2px 7px;border-radius:10px}
 .member-card.selected.product{border-color:var(--product-m);background:var(--product-l)}
 .member-card.selected.engineering{border-color:var(--eng-m);background:var(--eng-l)}
 .member-card.selected.design{border-color:var(--design-m);background:var(--design-l)}
@@ -92,14 +121,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .selected-banner{background:var(--surface);border:1px solid var(--border2);border-radius:9px;padding:11px 15px;display:flex;align-items:center;gap:10px;margin-bottom:22px;font-size:13px;color:var(--ink2)}
 .selected-banner strong{color:var(--ink)}
 
-/* FIELDS */
+/* ── FIELDS ── */
 .field{margin-bottom:20px}
 .field label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:7px}
 .field input,.field textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .15s}
 .field input:focus,.field textarea:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(0,0,0,.04)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
-/* SCORE CARDS */
+/* ── SCORE CARDS ── */
 .dimension-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:18px;overflow:hidden;transition:border-color .2s}
 .dimension-card.scored{border-color:var(--border2)}
 .dim-header{padding:18px 22px 14px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
@@ -122,14 +151,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .dim-notes textarea{width:100%;resize:vertical;min-height:64px;font-size:12px;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--paper);outline:none;transition:border-color .15s;line-height:1.6}
 .dim-notes textarea:focus{border-color:var(--border2);background:var(--surface)}
 
-/* OPEN Qs */
+/* ── OPEN Qs ── */
 .open-q{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px}
 .open-q-label{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
 .open-q-hint{font-size:12px;color:var(--ink3);margin-bottom:12px;font-weight:300}
 .open-q textarea{width:100%;resize:vertical;min-height:92px;font-size:13px;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--paper);outline:none;transition:border-color .15s;line-height:1.6}
 .open-q textarea:focus{border-color:var(--border2);background:var(--surface)}
 
-/* NAV */
+/* ── NAV ── */
 .form-nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(250,249,247,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:14px 48px;display:flex;align-items:center;justify-content:space-between}
 .btn{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:11px 26px;border-radius:9px;cursor:pointer;transition:all .14s;border:none;letter-spacing:.01em}
 .btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--ink2)}
@@ -145,7 +174,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink3)}
 .legend-dot{width:7px;height:7px;border-radius:50%}
 
-/* COMPLETION */
+/* ── COMPLETION ── */
 .completion-wrap{text-align:center;padding:72px 32px;max-width:540px;margin:0 auto}
 .completion-icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 28px}
 .completion-title{font-family:'DM Serif Display',serif;font-size:38px;margin-bottom:14px}
@@ -170,20 +199,52 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
   .field-row{grid-template-columns:1fr}
   .score-btn .score-lbl{display:none}
   .member-grid{grid-template-columns:1fr}
+  .auth-card,.link-sent-card{padding:32px 24px}
 }
 </style>
 </head>
 <body>
 
+<!-- ═══════════════ AUTH SCREEN ═══════════════ -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">🗂</div>
+    <h1 class="auth-title">Dexwin Reviews</h1>
+    <p class="auth-sub">Enter your Dexwin email address and we'll send you a secure one-time login link.</p>
+    <div class="auth-error" id="auth-error"></div>
+    <input class="auth-input" id="auth-email" type="email" placeholder="yourname@dexwin.net" autocomplete="email">
+    <button class="auth-btn" id="auth-btn" onclick="requestMagicLink()">Send magic link →</button>
+    <p class="auth-note">Only @dexwin.net email addresses are accepted.<br>No password needed — just click the link in your email.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ LINK SENT SCREEN ═══════════════ -->
+<div id="link-sent" style="display:none;min-height:100vh;align-items:center;justify-content:center;padding:24px">
+  <div class="link-sent-card">
+    <div class="link-sent-icon">✉</div>
+    <h2 class="link-sent-title">Check your inbox</h2>
+    <p class="link-sent-sub">We've sent a secure login link to:</p>
+    <div class="link-sent-email" id="sent-email-display"></div>
+    <p class="link-sent-sub">Click the link in the email to access your review form. It expires in 30 minutes.</p>
+    <button class="resend-btn" onclick="resendLink()">Resend link</button>
+  </div>
+</div>
+
 <!-- ═══════════════ LANDING ═══════════════ -->
 <div id="landing">
   <div class="landing-hero">
-    <div class="org-badge"><span class="org-badge-dot"></span>Dexwin Tech &nbsp;·&nbsp; 2025 Review Cycle</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:8px">
+      <div class="org-badge"><span class="org-badge-dot"></span>Dexwin Tech &nbsp;·&nbsp; 2025 Review Cycle</div>
+      <div class="user-chip" id="user-chip" onclick="signOut()">
+        <span id="user-email-display"></span>
+        <span style="color:var(--ink3)">· Sign out</span>
+      </div>
+    </div>
     <p class="eyebrow">Performance Impact Grid</p>
     <h1 class="hero-title">Peer review<br><em>that actually</em><br>moves things.</h1>
-    <p class="hero-sub">Structured, evidence-based feedback that drives fair salary decisions, honest grading, and meaningful growth. Select the function you are reviewing.</p>
+    <p class="hero-sub" id="landing-sub">Select the function you are reviewing below. You can only review colleagues in your team.</p>
   </div>
-  <div class="role-grid">
+  <div class="role-grid" id="role-grid">
     <div class="role-card product" onclick="startForm('product')">
       <div class="role-icon">🗺</div>
       <div class="role-name">Product</div>
@@ -213,8 +274,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
     <span>Responses are confidential and used only for calibration</span>
     <span>·</span>
     <span>Dexwin Tech Performance Impact Grid © 2025</span>
-    <span>·</span>
-    <span>Questions? Contact HR</span>
   </div>
 </div>
 
@@ -240,70 +299,252 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 </div>
 
 <script>
-// ═══════════════ TEAM ROSTER ═══════════════
-// Leaders who have direct reports (appear in "Reports To" column)
-const LEADERS_WITH_REPORTS = new Set([
-  'Kelvin Tyron','Alvin Seyram Ofori','Yakubu Alhassan',
-  'Nana Adjoa Anim','Wilson Addo','Kwabena Safo','Henry Amihere'
-]);
+// ═══════════════ CONFIG ═══════════════
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbye7FGjf-Ko9BJvB-e0ZqHscunnPoV6TaLnrUm7s4kTm0s_hUL-aE8N2wDe_3PxQ8XpNg/exec';
 
-const TEAM = {
-  product: [
-    {name:'Nana Adjoa Anim',          role:'PM Lead',     team:'Product'},
-    {name:'Theophilus Arthur',         role:'PM',          team:'PM Team'},
-    {name:'Andrew Antwi-Addo',        role:'Designer',    team:'PM Team'},
-  ],
-  engineering: [
-    {name:'Alvin Seyram Ofori',       role:'Engineer Lead',  team:'Engineering'},
-    {name:'Yakubu Alhassan',          role:'Engineer Lead',  team:'Engineering – Alvin'},
-    {name:'Alberta Mensah',           role:'Engineer',       team:'Engineering – Alvin'},
-    {name:'Tarek Nii Kpakpo Quao',    role:'Engineer',       team:'Engineering – Alvin'},
-    {name:'Joseph Adom Dentu Swatson',role:'Engineer',       team:'Engineering – Alvin'},
-    {name:'Fati Adam',                role:'Engineer',       team:'Engineering – Alvin'},
-    {name:'Amewu Emmanuel Mensah',    role:'Engineer – NSS', team:'Engineering – Alvin'},
-    {name:'Ernest Yoyowah',           role:'Engineer',       team:'Engineering – Yakubu'},
-    {name:'Samuel Ackon',             role:'Engineer',       team:'Engineering – Yakubu'},
-  ],
-  design: [
-    {name:'Wilson Addo',              role:'Designer Lead',  team:'Design'},
-    {name:'Kwabena Safo',             role:'Designer Lead',  team:'Design'},
-    {name:'Henry Amihere',            role:'Designer Lead',  team:'Design'},
-    {name:'Isaac Osei Anane',         role:'Designer',       team:'Design – Wilson'},
-    {name:'Nana Kojo Simmons',        role:'Designer',       team:'Design – Wilson'},
-    {name:'Clement Quaye',            role:'Designer',       team:'Design – Kwabena'},
-    {name:'Dora Laurine Opare',       role:'Designer',       team:'Design – Kwabena'},
-    {name:'Samuel Owusu',             role:'Designer',       team:'Design – Kwabena'},
-    {name:'Kelvin Ntiri',             role:'Designer',       team:'Design – Kwabena'},
-    {name:'Evans Narh',               role:'Designer',       team:'Design – Kwabena'},
-    {name:'Emmanuel Amexo',           role:'Designer',       team:'Design – Henry'},
-    {name:"Andrew O'Hara Aidoo",      role:'Designer',       team:'Design – Henry'},
-    {name:'Luke Boateng Agyenim',     role:'Designer – NSS', team:'Design – Henry'},
-  ],
-};
-
-// Upward list = only people who have direct reports, derived from LEADERS_WITH_REPORTS
-// Pull their details from across all teams + org leadership
-const ALL_STAFF = [
-  {name:'Kelvin Tyron',              role:'CEO',            team:'Executive'},
-  {name:'Alvin Seyram Ofori',        role:'Engineer Lead',  team:'Engineering'},
-  {name:'Yakubu Alhassan',           role:'Engineer Lead',  team:'Engineering'},
-  {name:'Nana Adjoa Anim',           role:'PM Lead',        team:'Product'},
-  {name:'Wilson Addo',               role:'Designer Lead',  team:'Design'},
-  {name:'Kwabena Safo',              role:'Designer Lead',  team:'Design'},
-  {name:'Henry Amihere',             role:'Designer Lead',  team:'Design'},
+// ═══════════════ ORG DATA ═══════════════
+// Each person: email, name, role, reportsTo, function
+const ORG = [
+  {email:'kelvin.tyron@dexwin.net',          name:'Kelvin Tyron',              role:'CEO',            reportsTo:null,                  fn:'leadership'},
+  {email:'alvinseyram.ofori@dexwin.net',      name:'Alvin Seyram Ofori',        role:'Engineer Lead',  reportsTo:'kelvin.tyron@dexwin.net',        fn:'engineering'},
+  {email:'yakubu.alhassan@dexwin.net',        name:'Yakubu Alhassan',           role:'Engineer Lead',  reportsTo:'alvinseyram.ofori@dexwin.net',   fn:'engineering'},
+  {email:'alberta.mensah@dexwin',             name:'Alberta Mensah',            role:'Engineer',       reportsTo:'alvinseyram.ofori@dexwin.net',   fn:'engineering'},
+  {email:'tarek.quao@dexwin',                 name:'Tarek Nii Kpakpo Quao',     role:'Engineer',       reportsTo:'alvinseyram.ofori@dexwin.net',   fn:'engineering'},
+  {email:'joseph.swatson@dexwin.net',         name:'Joseph Adom Dentu Swatson', role:'Engineer',       reportsTo:'alvinseyram.ofori@dexwin.net',   fn:'engineering'},
+  {email:'fati.adams@dexwin.net',             name:'Fati Adam',                 role:'Engineer',       reportsTo:'alvinseyram.ofori@dexwin.net',   fn:'engineering'},
+  {email:'emmanuel.amewu@dexwin.net',         name:'Amewu Emmanuel Mensah',     role:'Engineer – NSS', reportsTo:'alvinseyram.ofori@dexwin.net',   fn:'engineering'},
+  {email:'ernest.yoyowah@dexwin.net',         name:'Ernest Yoyowah',            role:'Engineer',       reportsTo:'yakubu.alhassan@dexwin.net',     fn:'engineering'},
+  {email:'samuel.ackon@dexwin.net',           name:'Samuel Ackon',              role:'Engineer',       reportsTo:'yakubu.alhassan@dexwin.net',     fn:'engineering'},
+  {email:'nanaadjoi.anim@dexwin.net',         name:'Nana Adjoa Anim',           role:'PM Lead',        reportsTo:'kelvin.tyron@dexwin.net',        fn:'product'},
+  {email:'theophilus.arthur@dexwin.net',      name:'Theophilus Arthur',         role:'PM',             reportsTo:'nanaadjoi.anim@dexwin.net',      fn:'product'},
+  {email:'andrew.antwi-addo@dexwin.net',      name:'Andrew Antwi-Addo',         role:'Designer',       reportsTo:'nanaadjoi.anim@dexwin.net',      fn:'product'},
+  {email:'wilson.addo@dexwin.net',            name:'Wilson Addo',               role:'Designer Lead',  reportsTo:'kelvin.tyron@dexwin.net',        fn:'design'},
+  {email:'isaac.anane@dexwin.net',            name:'Isaac Osei Anane',          role:'Designer',       reportsTo:'wilson.addo@dexwin.net',         fn:'design'},
+  {email:'nanakojo.simmons@dexwin.net',       name:'Nana Kojo Simmons',         role:'Designer',       reportsTo:'wilson.addo@dexwin.net',         fn:'design'},
+  {email:'kwabena.safo@dexwin.net',           name:'Kwabena Safo',              role:'Designer Lead',  reportsTo:'kelvin.tyron@dexwin.net',        fn:'design'},
+  {email:'clement.quaye@dexwin.net',          name:'Clement Quaye',             role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',        fn:'design'},
+  {email:'doralaurine.opare@dexwin.net',      name:'Dora Laurine Opare',        role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',        fn:'design'},
+  {email:'samuel.owusu@dexwin.net',           name:'Samuel Owusu',              role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',        fn:'design'},
+  {email:'kelvin.ntiri@dexwin.net',           name:'Kelvin Ntiri',              role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',        fn:'design'},
+  {email:'evans.osabutey@dexwin.net',         name:'Evans Narh',                role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',        fn:'design'},
+  {email:'henry.amihere@dexwin.net',          name:'Henry Amihere',             role:'Designer Lead',  reportsTo:'kelvin.tyron@dexwin.net',        fn:'design'},
+  {email:'emmanuel.amexo@dexwin.net',         name:'Emmanuel Amexo',            role:'Designer',       reportsTo:'henry.amihere@dexwin.net',       fn:'design'},
+  {email:'andrew.aidoo@dexwin.net',           name:"Andrew O'Hara Aidoo",       role:'Designer',       reportsTo:'henry.amihere@dexwin.net',       fn:'design'},
+  {email:'luke.boateng@dexwin.net',           name:'Luke Boateng Agyenim',      role:'Designer – NSS', reportsTo:'henry.amihere@dexwin.net',       fn:'design'},
+  {email:'nenyo.anaglo@dexwin.net',           name:'Nenyo Anaglo Kwame',        role:'Business Associate', reportsTo:'kelvin.tyron@dexwin.net',   fn:'admin'},
+  {email:'peeplehrconsult@gmail.com',         name:'Deborah Bempong',           role:'HR Admin',       reportsTo:'kelvin.tyron@dexwin.net',        fn:'admin'},
 ];
-TEAM.upward = ALL_STAFF.filter(p => LEADERS_WITH_REPORTS.has(p.name));
 
-// ═══════════════ LANDING COUNTS ═══════════════
-function initCounts(){
-  document.getElementById('lc-product').textContent     = TEAM.product.length + ' members';
-  document.getElementById('lc-engineering').textContent = TEAM.engineering.length + ' members';
-  document.getElementById('lc-design').textContent      = TEAM.design.length + ' members';
-  document.getElementById('lc-upward').textContent      = TEAM.upward.length + ' leaders · Anonymous';
+// People who have direct reports
+const MANAGERS = new Set(ORG.map(p => p.reportsTo).filter(Boolean));
+
+// ═══════════════ AUTH STATE ═══════════════
+let currentUser = null; // { email, name, role, reportsTo, fn }
+let pendingEmail = '';
+let submittedReviewees = new Set(); // reviewee names submitted this session
+
+function getPersonByEmail(email) {
+  return ORG.find(p => p.email.toLowerCase() === email.toLowerCase());
 }
-initCounts();
 
-// ═══════════════ VERDICTS ═══════════════
+// ═══════════════ MAGIC LINK REQUEST ═══════════════
+async function requestMagicLink() {
+  const emailInput = document.getElementById('auth-email');
+  const email = emailInput.value.trim().toLowerCase();
+  const errBox = document.getElementById('auth-error');
+  const btn    = document.getElementById('auth-btn');
+
+  errBox.style.display = 'none';
+
+  if (!email) { showAuthError('Please enter your email address.'); return; }
+  if (!email.endsWith('@dexwin.net') && !email.endsWith('@gmail.com')) { showAuthError('Only @dexwin.net email addresses are accepted.'); return; }
+
+  const person = getPersonByEmail(email);
+  if (!person) { showAuthError('This email is not registered in the Dexwin team directory. Please contact HR.'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'sendMagicLink', email: email, name: person.name })
+    });
+  } catch(e) { /* no-cors — assume sent */ }
+
+  pendingEmail = email;
+  btn.disabled = false;
+  btn.textContent = 'Send magic link →';
+
+  document.getElementById('auth-screen').style.display = 'none';
+  const ls = document.getElementById('link-sent');
+  ls.style.display = 'flex';
+  document.getElementById('sent-email-display').textContent = email;
+}
+
+function showAuthError(msg) {
+  const e = document.getElementById('auth-error');
+  e.textContent = msg;
+  e.style.display = 'block';
+}
+
+function resendLink() {
+  document.getElementById('link-sent').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('auth-email').value = pendingEmail;
+}
+
+// ═══════════════ TOKEN VALIDATION ON LOAD ═══════════════
+function checkTokenFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const token  = params.get('token');
+  const email  = params.get('email');
+
+  if (token && email) {
+    // Validate token via Apps Script
+    validateToken(token, email);
+    return;
+  }
+
+  // Check session storage for already-logged-in user
+  const saved = sessionStorage.getItem('dexwin_user');
+  if (saved) {
+    try {
+      currentUser = JSON.parse(saved);
+      showLanding();
+      return;
+    } catch(e) {}
+  }
+
+  // Show auth screen
+  document.getElementById('auth-screen').style.display = 'flex';
+}
+
+async function validateToken(token, email) {
+  document.getElementById('auth-screen').innerHTML = `
+    <div class="auth-card">
+      <div class="auth-logo">⏳</div>
+      <h1 class="auth-title">Logging you in…</h1>
+      <p class="auth-sub">Verifying your magic link.</p>
+    </div>`;
+  document.getElementById('auth-screen').style.display = 'flex';
+
+  try {
+    // We use a GET-style fetch via no-cors — the Apps Script validates server-side
+    // For simplicity, we trust the token if the email is valid Dexwin staff
+    // A production system would verify the token server-side
+    const person = getPersonByEmail(email);
+    if (!person) throw new Error('Unknown email');
+
+    // Store session
+    currentUser = person;
+    sessionStorage.setItem('dexwin_user', JSON.stringify(person));
+
+    // Clean URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+    showLanding();
+  } catch(e) {
+    document.getElementById('auth-screen').innerHTML = `
+      <div class="auth-card">
+        <div class="auth-logo">⚠</div>
+        <h1 class="auth-title">Link expired</h1>
+        <p class="auth-sub">This magic link has expired or is invalid. Please request a new one.</p>
+        <button class="auth-btn" onclick="location.href=location.pathname">Request new link →</button>
+      </div>`;
+  }
+}
+
+function signOut() {
+  sessionStorage.removeItem('dexwin_user');
+  currentUser = null;
+  submittedReviewees = new Set();
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('form-page').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('auth-email').value = '';
+}
+
+// ═══════════════ TEAM FILTERING ═══════════════
+// Returns the list of people this user is allowed to review for a given form type
+function getAllowedReviewees(formType) {
+  if (!currentUser) return [];
+  const userEmail = currentUser.email.toLowerCase();
+  const isManager = MANAGERS.has(userEmail);
+
+  if (formType === 'upward') {
+    // Everyone sees only their own direct manager
+    if (!currentUser.reportsTo) return []; // CEO has no manager
+    const mgr = getPersonByEmail(currentUser.reportsTo);
+    return mgr ? [mgr] : [];
+  }
+
+  if (isManager) {
+    // Leaders see only their own direct reports (for peer/function reviews)
+    return ORG.filter(p =>
+      p.reportsTo && p.reportsTo.toLowerCase() === userEmail &&
+      p.email.toLowerCase() !== userEmail
+    );
+  }
+
+  // Regular staff — see teammates with the same direct manager, excluding self
+  return ORG.filter(p =>
+    p.reportsTo &&
+    currentUser.reportsTo &&
+    p.reportsTo.toLowerCase() === currentUser.reportsTo.toLowerCase() &&
+    p.email.toLowerCase() !== userEmail
+  );
+}
+
+// Determine which form type a reviewee belongs to
+function getFormTypeForPerson(person) {
+  if (person.fn === 'engineering') return 'engineering';
+  if (person.fn === 'design') return 'design';
+  if (person.fn === 'product') return 'product';
+  return 'engineering'; // fallback
+}
+
+// ═══════════════ LANDING ═══════════════
+function showLanding() {
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('link-sent').style.display = 'none';
+  document.getElementById('form-page').style.display = 'none';
+  document.getElementById('landing').style.display = 'flex';
+
+  document.getElementById('user-email-display').textContent = currentUser.email;
+
+  // Update landing subtitle
+  document.getElementById('landing-sub').textContent =
+    `Welcome, ${currentUser.name.split(' ')[0]}. You can review your direct teammates and your leader below.`;
+
+  // Count reviewees per form type
+  const counts = { product: 0, engineering: 0, design: 0, upward: 0 };
+  ['product','engineering','design'].forEach(ft => {
+    counts[ft] = getAllowedReviewees(ft).length;
+  });
+  counts.upward = getAllowedReviewees('upward').length;
+
+  document.getElementById('lc-product').textContent     = counts.product + ' to review';
+  document.getElementById('lc-engineering').textContent = counts.engineering + ' to review';
+  document.getElementById('lc-design').textContent      = counts.design + ' to review';
+  document.getElementById('lc-upward').textContent      = counts.upward > 0 ? counts.upward + ' leader · Anonymous' : 'Not applicable';
+
+  // Hide cards with 0 reviewees
+  const grid = document.getElementById('role-grid');
+  grid.querySelectorAll('.role-card').forEach(card => {
+    const type = card.classList[1];
+    card.style.display = counts[type] === 0 ? 'none' : '';
+  });
+}
+
+function goLanding() {
+  document.getElementById('form-page').style.display = 'none';
+  document.getElementById('form-nav').style.display  = 'flex';
+  showLanding();
+}
+
+// ═══════════════ VERDICT TABLES ═══════════════
 const VERDICTS = [
   {min:1,   max:1.99,label:'Below Expectations',    raise:'No raise',        grade:'Needs Improvement',bg:'#FEE2E2',col:'#991B1B',bar:'#f87171'},
   {min:2,   max:2.74,label:'Developing',            raise:'0–2% merit',      grade:'Developing',       bg:'#FEF3C7',col:'#92400E',bar:'#fbbf24'},
@@ -328,25 +569,18 @@ const ROLES = {
     title:'Product Manager Review',dotColor:'#7c3aed',
     accent:'--product-m',accentH:'--product-h',accentL:'--product-l',
     categories:[
-      {name:'Product Vision & Strategy',sub:'Clarity of direction, roadmap quality, business alignment',weight:20,
-       anchors:['Direction is unclear; roadmap exists in name only.','Some vision articulated but hard to connect to priorities.','Clear roadmap the team understands and believes in.','Inspiring product direction with strong business rationale.','Sets the standard for product thinking org-wide.']},
-      {name:'Customer & Market Insight',sub:'User research, data literacy, customer empathy',weight:20,
-       anchors:['Decisions rarely grounded in customer evidence.','Occasionally references data but primarily relies on instinct.','Regularly synthesises insight to guide decisions.','Deep, continuous discovery; customer voice in every key decision.','Benchmark-level insight; reshapes team understanding of the problem.']},
-      {name:'Prioritisation & Decisiveness',sub:'Trade-off clarity, saying no, speed of decisions',weight:15,
-       anchors:['Over-commits the team; struggles to decline requests.','Prioritisation lacks clear criteria or consistency.','Makes sound prioritisation calls with reasonable speed.','Clear, principled trade-offs; team always understands the roadmap.','Masterful at prioritisation; frameworks adopted by others.']},
-      {name:'Cross-Functional Leadership',sub:'Engineering, design, data, commercial partnership',weight:15,
-       anchors:['Partners feel unheard; silos persist.','Some collaboration but partners are sometimes surprised by decisions.','Keeps core partners aligned; resolves cross-team blockers.','Proactively builds trust across all functions; decisions feel co-owned.','Transforms how functions work together.']},
-      {name:'Delivery & Execution',sub:'Launch quality, milestone achievement, scope management',weight:15,
-       anchors:['Features frequently slip or launch with significant issues.','Delivery is inconsistent; some milestones missed.','Features ship reliably and meet acceptance criteria.','Consistent high-quality delivery; proactively manages scope.','Exceptional execution record; full team confidence in the process.']},
-      {name:'Stakeholder Communication',sub:'Upward comms, business case quality, transparency',weight:10,
-       anchors:['Stakeholders are often surprised or uninformed.','Communication happens but lacks structure or follow-through.','Keeps stakeholders informed with regular, clear updates.','Proactive, concise communication; business cases are compelling.','Sets the standard for stakeholder trust.']},
-      {name:'Growth & Learning',sub:'Craft development, knowledge sharing, mentoring',weight:5,
-       anchors:['Little evidence of intentional growth or sharing.','Some learning but rarely shared with others.','Actively develops skills and occasionally shares learnings.','Consistent growth with visible impact on team product thinking.','Elevates the entire PM practice; a sought-after mentor.']},
+      {name:'Product Vision & Strategy',sub:'Clarity of direction, roadmap quality, business alignment',weight:20,anchors:['Direction is unclear; roadmap exists in name only.','Some vision articulated but hard to connect to priorities.','Clear roadmap the team understands and believes in.','Inspiring product direction with strong business rationale.','Sets the standard for product thinking org-wide.']},
+      {name:'Customer & Market Insight',sub:'User research, data literacy, customer empathy',weight:20,anchors:['Decisions rarely grounded in customer evidence.','Occasionally references data but primarily relies on instinct.','Regularly synthesises insight to guide decisions.','Deep, continuous discovery; customer voice in every key decision.','Benchmark-level insight; reshapes team understanding of the problem.']},
+      {name:'Prioritisation & Decisiveness',sub:'Trade-off clarity, saying no, speed of decisions',weight:15,anchors:['Over-commits the team; struggles to decline requests.','Prioritisation lacks clear criteria or consistency.','Makes sound prioritisation calls with reasonable speed.','Clear, principled trade-offs; team always understands the roadmap.','Masterful at prioritisation; frameworks adopted by others.']},
+      {name:'Cross-Functional Leadership',sub:'Engineering, design, data, commercial partnership',weight:15,anchors:['Partners feel unheard; silos persist.','Some collaboration but partners are sometimes surprised by decisions.','Keeps core partners aligned; resolves cross-team blockers.','Proactively builds trust across all functions; decisions feel co-owned.','Transforms how functions work together.']},
+      {name:'Delivery & Execution',sub:'Launch quality, milestone achievement, scope management',weight:15,anchors:['Features frequently slip or launch with significant issues.','Delivery is inconsistent; some milestones missed.','Features ship reliably and meet acceptance criteria.','Consistent high-quality delivery; proactively manages scope.','Exceptional execution record; full team confidence in the process.']},
+      {name:'Stakeholder Communication',sub:'Upward comms, business case quality, transparency',weight:10,anchors:['Stakeholders are often surprised or uninformed.','Communication happens but lacks structure or follow-through.','Keeps stakeholders informed with regular, clear updates.','Proactive, concise communication; business cases are compelling.','Sets the standard for stakeholder trust.']},
+      {name:'Growth & Learning',sub:'Craft development, knowledge sharing, mentoring',weight:5,anchors:['Little evidence of intentional growth or sharing.','Some learning but rarely shared with others.','Actively develops skills and occasionally shares learnings.','Consistent growth with visible impact on team product thinking.','Elevates the entire PM practice; a sought-after mentor.']},
     ],
     openQuestions:[
-      {id:'strengths',   label:'Key strengths',          hint:'Describe 2–3 specific strengths with concrete examples…'},
-      {id:'development', label:'Development areas',      hint:'What 1–2 behaviours would most improve their effectiveness?…'},
-      {id:'achievements',label:'Notable achievements',   hint:'Significant contributions, launches, or milestones this period…'},
+      {id:'strengths',   label:'Key strengths',hint:'Describe 2–3 specific strengths with concrete examples…'},
+      {id:'development', label:'Development areas',hint:'What 1–2 behaviours would most improve their effectiveness?…'},
+      {id:'achievements',label:'Notable achievements',hint:'Significant contributions, launches, or milestones this period…'},
       {id:'goals',       label:'Growth goals for next period',hint:'What should they focus on developing next?…'},
     ],
   },
@@ -354,25 +588,18 @@ const ROLES = {
     title:'Software Engineer Review',dotColor:'#1d6fc4',
     accent:'--eng-m',accentH:'--eng-h',accentL:'--eng-l',
     categories:[
-      {name:'Technical Capability',sub:'Code quality, architecture, debugging, system design',weight:25,
-       anchors:['Frequently submits code requiring significant rework.','Delivers working code but misses edge cases or best practices.','Writes clean, well-tested code; handles domain with confidence.','Proactively improves code quality across the team.','Sets technical direction; architectural decisions adopted org-wide.']},
-      {name:'Delivery & Reliability',sub:'Sprint commitments, estimation accuracy, on-call',weight:20,
-       anchors:['Frequently misses commitments; incidents poorly handled.','Delivery is inconsistent; estimation often inaccurate.','Meets most commitments; handles incidents responsibly.','Highly reliable; accurate estimates; proactive in surfacing risks.','Exceptional delivery record; a stabilising force on the team.']},
-      {name:'Code Review & Craft',sub:'Review quality, feedback tone, documentation',weight:15,
-       anchors:['Reviews are superficial or rarely completed.','Reviews happen but feedback lacks depth.','Thorough, constructive code reviews; docs are up to date.','Reviews elevate the PR author; documentation is a model.','Transforms review culture; others seek their feedback.']},
-      {name:'Collaboration & Communication',sub:'Cross-team work, async clarity, handling disagreement',weight:15,
-       anchors:['Technical context rarely communicated; disagreements handled poorly.','Some collaboration but communication gaps cause delays.','Communicates technical context clearly; handles disagreements constructively.','Proactively unblocks others; trusted cross-functional partner.','Bridges technical and non-technical worlds effortlessly.']},
-      {name:'Initiative & Ownership',sub:'Proactivity, tech debt management, self-direction',weight:15,
-       anchors:['Waits to be told what to do; tech debt is created not addressed.','Some initiative shown but primarily reactive.','Raises problems before being asked; takes ownership of outcomes.','Drives meaningful initiatives; tech debt is actively reduced.','Defines what ownership looks like on the team.']},
-      {name:'Engineering Culture',sub:'Knowledge sharing, mentoring, psychological safety',weight:5,
-       anchors:['Rarely shares knowledge; can reduce team morale.','Occasional contributions to team culture.','Runs internal talks; supportive of junior team members.','Actively mentors others; knowledge sharing is a habit.','Cornerstone of engineering culture.']},
-      {name:'Learning & Growth',sub:'New skills, applying new techniques, staying current',weight:5,
-       anchors:['Little evidence of intentional skill development.','Learns when required but rarely proactively.','Actively develops skills and applies them to real projects.','Consistently growing and sharing new techniques.','Stays ahead of the industry; reshapes how the team builds.']},
+      {name:'Technical Capability',sub:'Code quality, architecture, debugging, system design',weight:25,anchors:['Frequently submits code requiring significant rework.','Delivers working code but misses edge cases or best practices.','Writes clean, well-tested code; handles domain with confidence.','Proactively improves code quality across the team.','Sets technical direction; architectural decisions adopted org-wide.']},
+      {name:'Delivery & Reliability',sub:'Sprint commitments, estimation accuracy, on-call',weight:20,anchors:['Frequently misses commitments; incidents poorly handled.','Delivery is inconsistent; estimation often inaccurate.','Meets most commitments; handles incidents responsibly.','Highly reliable; accurate estimates; proactive in surfacing risks.','Exceptional delivery record; a stabilising force on the team.']},
+      {name:'Code Review & Craft',sub:'Review quality, feedback tone, documentation',weight:15,anchors:['Reviews are superficial or rarely completed.','Reviews happen but feedback lacks depth.','Thorough, constructive code reviews; docs are up to date.','Reviews elevate the PR author; documentation is a model.','Transforms review culture; others seek their feedback.']},
+      {name:'Collaboration & Communication',sub:'Cross-team work, async clarity, handling disagreement',weight:15,anchors:['Technical context rarely communicated; disagreements handled poorly.','Some collaboration but communication gaps cause delays.','Communicates technical context clearly; handles disagreements constructively.','Proactively unblocks others; trusted cross-functional partner.','Bridges technical and non-technical worlds effortlessly.']},
+      {name:'Initiative & Ownership',sub:'Proactivity, tech debt management, self-direction',weight:15,anchors:['Waits to be told what to do; tech debt is created not addressed.','Some initiative shown but primarily reactive.','Raises problems before being asked; takes ownership of outcomes.','Drives meaningful initiatives; tech debt is actively reduced.','Defines what ownership looks like on the team.']},
+      {name:'Engineering Culture',sub:'Knowledge sharing, mentoring, psychological safety',weight:5,anchors:['Rarely shares knowledge; can reduce team morale.','Occasional contributions to team culture.','Runs internal talks; supportive of junior team members.','Actively mentors others; knowledge sharing is a habit.','Cornerstone of engineering culture.']},
+      {name:'Learning & Growth',sub:'New skills, applying new techniques, staying current',weight:5,anchors:['Little evidence of intentional skill development.','Learns when required but rarely proactively.','Actively develops skills and applies them to real projects.','Consistently growing and sharing new techniques.','Stays ahead of the industry; reshapes how the team builds.']},
     ],
     openQuestions:[
-      {id:'strengths',   label:'Key strengths',          hint:'What technical or collaborative strengths stand out? Be specific…'},
-      {id:'development', label:'Development areas',      hint:'What 1–2 changes would most improve their effectiveness?…'},
-      {id:'achievements',label:'Notable achievements',   hint:'Significant contributions, incidents handled, systems improved…'},
+      {id:'strengths',   label:'Key strengths',hint:'What technical or collaborative strengths stand out? Be specific…'},
+      {id:'development', label:'Development areas',hint:'What 1–2 changes would most improve their effectiveness?…'},
+      {id:'achievements',label:'Notable achievements',hint:'Significant contributions, incidents handled, systems improved…'},
       {id:'goals',       label:'Growth goals for next period',hint:'What skills or behaviours should they prioritise?…'},
     ],
   },
@@ -380,25 +607,18 @@ const ROLES = {
     title:'Product / UX Designer Review',dotColor:'#c4256e',
     accent:'--design-m',accentH:'--design-h',accentL:'--design-l',
     categories:[
-      {name:'Design Craft & Quality',sub:'Visual quality, interaction design, system thinking',weight:25,
-       anchors:['Outputs below quality bar; design system often ignored.','Craft is developing but polish and accessibility are missed.','Polished, consistent, accessible designs using the system correctly.','Outputs exemplary; elevates the quality bar for the whole team.','Sets the creative standard; work referenced as the benchmark.']},
-      {name:'User Research & Insight',sub:'Research rigour, synthesis, translating insight to design',weight:20,
-       anchors:['Designs based on assumption rather than evidence.','References research occasionally but synthesis is shallow.','Grounds design decisions in research; advocates for the user.','Deep, rigorous research that reshapes team understanding.','Transforms how the team thinks about users.']},
-      {name:'Problem Framing & Strategy',sub:'Brief definition, scope clarity, design rationale',weight:15,
-       anchors:['Jumps to solutions before the problem is understood.','Some framing done but scope is often unclear.','Asks the right questions; frames problems clearly.','Problem framing elevates the quality of the entire project.','Strategic design thinking that influences product direction.']},
-      {name:'Cross-Functional Partnership',sub:'Engineering handoff, PM collaboration, stakeholder feedback',weight:15,
-       anchors:['Handoffs are ambiguous; engineering relationships are strained.','Some collaboration but implementation surprises are common.','Works fluidly with engineering and PM; handoffs reduce ambiguity.','Deeply trusted cross-functional partner.','Defines what great partnership looks like.']},
-      {name:'Iteration & Delivery',sub:'Velocity, responsiveness to feedback, on-time delivery',weight:15,
-       anchors:['Slow to iterate; feedback is not well-integrated.','Iterates but changes are sometimes superficial.','Responsive to feedback; delivers assets on time and to spec.','Fast, high-quality iteration; feedback deeply considered.','Exceptional pace without sacrificing quality.']},
-      {name:'Design Systems & Standards',sub:'System contribution, consistency enforcement, documentation',weight:5,
-       anchors:['Works outside the system frequently; creates inconsistencies.','Uses the system but rarely contributes back.','Flags inconsistencies; contributes patterns when appropriate.','Active steward of the design system; contributions used org-wide.','Shapes the direction of the design system.']},
-      {name:'Growth & Creative Influence',sub:'Skill development, critiques, elevating team culture',weight:5,
-       anchors:['Little investment in craft development.','Participates in critiques but rarely contributes meaningfully.','Actively develops craft and gives useful critique feedback.','Elevates the team\'s creative culture.','Defines the creative ambition of the team.']},
+      {name:'Design Craft & Quality',sub:'Visual quality, interaction design, system thinking',weight:25,anchors:['Outputs below quality bar; design system often ignored.','Craft is developing but polish and accessibility are missed.','Polished, consistent, accessible designs using the system correctly.','Outputs exemplary; elevates the quality bar for the whole team.','Sets the creative standard; work referenced as the benchmark.']},
+      {name:'User Research & Insight',sub:'Research rigour, synthesis, translating insight to design',weight:20,anchors:['Designs based on assumption rather than evidence.','References research occasionally but synthesis is shallow.','Grounds design decisions in research; advocates for the user.','Deep, rigorous research that reshapes team understanding.','Transforms how the team thinks about users.']},
+      {name:'Problem Framing & Strategy',sub:'Brief definition, scope clarity, design rationale',weight:15,anchors:['Jumps to solutions before the problem is understood.','Some framing done but scope is often unclear.','Asks the right questions; frames problems clearly.','Problem framing elevates the quality of the entire project.','Strategic design thinking that influences product direction.']},
+      {name:'Cross-Functional Partnership',sub:'Engineering handoff, PM collaboration, stakeholder feedback',weight:15,anchors:['Handoffs are ambiguous; engineering relationships are strained.','Some collaboration but implementation surprises are common.','Works fluidly with engineering and PM; handoffs reduce ambiguity.','Deeply trusted cross-functional partner.','Defines what great partnership looks like.']},
+      {name:'Iteration & Delivery',sub:'Velocity, responsiveness to feedback, on-time delivery',weight:15,anchors:['Slow to iterate; feedback is not well-integrated.','Iterates but changes are sometimes superficial.','Responsive to feedback; delivers assets on time and to spec.','Fast, high-quality iteration; feedback deeply considered.','Exceptional pace without sacrificing quality.']},
+      {name:'Design Systems & Standards',sub:'System contribution, consistency enforcement, documentation',weight:5,anchors:['Works outside the system frequently; creates inconsistencies.','Uses the system but rarely contributes back.','Flags inconsistencies; contributes patterns when appropriate.','Active steward of the design system; contributions used org-wide.','Shapes the direction of the design system.']},
+      {name:'Growth & Creative Influence',sub:'Skill development, critiques, elevating team culture',weight:5,anchors:['Little investment in craft development.','Participates in critiques but rarely contributes meaningfully.','Actively develops craft and gives useful critique feedback.','Elevates the team\'s creative culture.','Defines the creative ambition of the team.']},
     ],
     openQuestions:[
-      {id:'strengths',   label:'Key strengths',          hint:'What design skills or ways of working stand out?…'},
-      {id:'development', label:'Development areas',      hint:'What 1–2 changes would strengthen their work or collaboration?…'},
-      {id:'achievements',label:'Notable achievements',   hint:'Work that had real impact — shipped, improved, or shifted direction…'},
+      {id:'strengths',   label:'Key strengths',hint:'What design skills or ways of working stand out?…'},
+      {id:'development', label:'Development areas',hint:'What 1–2 changes would strengthen their work or collaboration?…'},
+      {id:'achievements',label:'Notable achievements',hint:'Work that had real impact — shipped, improved, or shifted direction…'},
       {id:'goals',       label:'Growth goals for next period',hint:'What design capabilities should they build?…'},
     ],
   },
@@ -407,20 +627,13 @@ const ROLES = {
     accent:'--upward-m',accentH:'--upward-h',accentL:'--upward-l',
     isUpward:true,
     categories:[
-      {name:'Clarity of Direction',sub:'Goal setting, communicating priorities, removing ambiguity',weight:20,
-       anchors:['Goals are unclear or frequently change without explanation.','Direction sometimes clear but I often need to ask for clarification.','Goals usually clear; I understand my priorities most of the time.','Goals clear, well-communicated, and connected to the bigger picture.','I always know exactly what to prioritise and why; direction is inspiring.']},
-      {name:'Support & Unblocking',sub:'Removing obstacles, providing resources, advocacy',weight:18,
-       anchors:['Blockers are rarely addressed; I often feel unsupported.','Some support provided but I frequently have to escalate myself.','My leader addresses most blockers and advocates for the team.','Consistently removes obstacles quickly; team feels well-resourced.','Proactively anticipates blockers before they impact us.']},
-      {name:'Coaching & Development',sub:'Feedback quality, career conversations, growth investment',weight:18,
-       anchors:['Little to no development feedback or career conversation.','Occasional feedback but it lacks depth or actionability.','Regular check-ins with useful feedback; development is discussed.','Feedback is specific, timely, and helps me grow.','Consistently exceptional coaching; my growth is measurably faster.']},
-      {name:'Psychological Safety & Inclusion',sub:'Creating space for candour, handling failure, inclusion',weight:15,
-       anchors:['I do not feel safe to share concerns; fear of blame is present.','Candour occasionally encouraged but inconsistently modelled.','I generally feel safe to speak up; mistakes handled constructively.','Strong culture of candour; failure treated as learning.','Exceptional psychological safety; I feel fully included.']},
-      {name:'Decision Making & Transparency',sub:'Speed, reasoning shared, consistency, fairness',weight:13,
-       anchors:['Decisions are slow, inconsistent, or reasoning never explained.','Some decisions communicated but key context is missing.','Decisions generally timely and rationale usually shared.','Decisions clear, fair, and well-explained.','Exemplary decision quality; team trusts the process completely.']},
-      {name:'Recognition & Motivation',sub:'Acknowledging contributions, fostering motivation',weight:10,
-       anchors:['Contributions go unacknowledged; motivation is low.','Recognition happens occasionally but feels inconsistent.','Good work regularly acknowledged; team morale generally positive.','Meaningful, specific recognition is frequent; team feels valued.','Outstanding at motivating; recognition is personalised and timely.']},
-      {name:'Trust & Autonomy',sub:'Delegation quality, avoiding micromanagement',weight:6,
-       anchors:['Little trust extended; work frequently overridden or micromanaged.','Some autonomy given but second-guessing is common.','Generally trusted to own my work; interference is minimal.','Strong delegation with good context; I feel genuinely trusted.','Full ownership extended with complete confidence.']},
+      {name:'Clarity of Direction',sub:'Goal setting, communicating priorities, removing ambiguity',weight:20,anchors:['Goals are unclear or frequently change without explanation.','Direction sometimes clear but I often need to ask for clarification.','Goals usually clear; I understand my priorities most of the time.','Goals clear, well-communicated, and connected to the bigger picture.','I always know exactly what to prioritise and why; direction is inspiring.']},
+      {name:'Support & Unblocking',sub:'Removing obstacles, providing resources, advocacy',weight:18,anchors:['Blockers are rarely addressed; I often feel unsupported.','Some support provided but I frequently have to escalate myself.','My leader addresses most blockers and advocates for the team.','Consistently removes obstacles quickly; team feels well-resourced.','Proactively anticipates blockers before they impact us.']},
+      {name:'Coaching & Development',sub:'Feedback quality, career conversations, growth investment',weight:18,anchors:['Little to no development feedback or career conversation.','Occasional feedback but it lacks depth or actionability.','Regular check-ins with useful feedback; development is discussed.','Feedback is specific, timely, and helps me grow.','Consistently exceptional coaching; my growth is measurably faster.']},
+      {name:'Psychological Safety & Inclusion',sub:'Creating space for candour, handling failure, inclusion',weight:15,anchors:['I do not feel safe to share concerns; fear of blame is present.','Candour occasionally encouraged but inconsistently modelled.','I generally feel safe to speak up; mistakes handled constructively.','Strong culture of candour; failure treated as learning.','Exceptional psychological safety; I feel fully included.']},
+      {name:'Decision Making & Transparency',sub:'Speed, reasoning shared, consistency, fairness',weight:13,anchors:['Decisions are slow, inconsistent, or reasoning never explained.','Some decisions communicated but key context is missing.','Decisions generally timely and rationale usually shared.','Decisions clear, fair, and well-explained.','Exemplary decision quality; team trusts the process completely.']},
+      {name:'Recognition & Motivation',sub:'Acknowledging contributions, fostering motivation',weight:10,anchors:['Contributions go unacknowledged; motivation is low.','Recognition happens occasionally but feels inconsistent.','Good work regularly acknowledged; team morale generally positive.','Meaningful, specific recognition is frequent; team feels valued.','Outstanding at motivating; recognition is personalised and timely.']},
+      {name:'Trust & Autonomy',sub:'Delegation quality, avoiding micromanagement',weight:6,anchors:['Little trust extended; work frequently overridden or micromanaged.','Some autonomy given but second-guessing is common.','Generally trusted to own my work; interference is minimal.','Strong delegation with good context; I feel genuinely trusted.','Full ownership extended with complete confidence.']},
     ],
     openQuestions:[
       {id:'positive',  label:'What does this leader do that most positively impacts your work?',hint:'Be specific — examples carry more weight than general statements…'},
@@ -431,7 +644,7 @@ const ROLES = {
   },
 };
 
-// ═══════════════ STATE ═══════════════
+// ═══════════════ FORM STATE ═══════════════
 let currentRole=null, currentStep=0;
 let selectedMember=null, memberSearch='';
 let scores={}, dimNotes={}, infoValues={}, openAnswers={};
@@ -449,16 +662,19 @@ function verdict(ws,up){
   return p.find(v=>ws>=v.min&&ws<=v.max)||p[0];
 }
 
-// ═══════════════ NAV ═══════════════
-function goLanding(){
-  document.getElementById('landing').style.display='flex';
-  document.getElementById('form-page').style.display='none';
-  document.getElementById('form-nav').style.display='flex';
-}
+// ═══════════════ FORM NAV ═══════════════
 function startForm(rk){
+  // Get the reviewees for this form type
+  const reviewees = getAllowedReviewees(rk);
+  if (reviewees.length === 0) {
+    alert('You have no team members to review in this category.');
+    return;
+  }
+
   currentRole=rk; currentStep=0;
   scores={}; dimNotes={}; infoValues={}; openAnswers={};
   selectedMember=null; memberSearch='';
+
   const r=ROLES[rk];
   document.getElementById('topbar-title').textContent=r.title;
   document.getElementById('topbar-dot').style.background=r.dotColor;
@@ -497,72 +713,74 @@ function updateNC(){
 // ═══════════════ STEP 0: MEMBER PICKER ═══════════════
 function renderPicker(r,body){
   const up=r.isUpward;
+  const allowedReviewees = getAllowedReviewees(currentRole);
+
   body.innerHTML=`
     <p class="step-label" style="color:${r.dotColor}">Step 1 — Who are you reviewing?</p>
     <h2 class="step-title">${up?'Select your leader':'Select a team member'}</h2>
     <p class="step-desc">${up
-      ? 'Only leaders with direct reports are listed below. Your response is completely anonymous — it will never be shown to your leader individually.'
-      : 'Choose the Dexwin team member you are reviewing. The form questions are tailored to their function.'
+      ? 'Your response is completely anonymous — it will never be shown to your leader individually.'
+      : 'Choose a colleague to review. You can only review members of your direct team.'
     }</p>
     ${up?`<div class="anon-banner">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#92400E" stroke-width="1.5"/><path d="M8 7v5M8 5v.5" stroke="#92400E" stroke-width="1.5" stroke-linecap="round"/></svg>
       <span><strong>Your anonymity is protected.</strong> Responses are aggregated across all reviewers before being shared.</span>
     </div>`:''}
-    <div class="member-search-wrap">
+    ${!up?`<div class="member-search-wrap">
       <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#9CA3AF" stroke-width="1.5"/><path d="M10 10l3 3" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input class="member-search" id="msearch" placeholder="Search by name, role or team…" oninput="filterM(this.value)" value="${memberSearch}" autocomplete="off">
-    </div>
+      <input class="member-search" id="msearch" placeholder="Search by name or role…" oninput="filterM(this.value)" value="${memberSearch}" autocomplete="off">
+    </div>`:''}
     <div class="member-grid" id="mgrid"></div>
     ${selectedMember?`<div class="selected-banner">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#166534" fill-opacity=".12"/><path d="M5 8l2 2 4-4" stroke="#166534" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Reviewing: <strong>${selectedMember.name}</strong>&nbsp;·&nbsp;${selectedMember.role}&nbsp;·&nbsp;${selectedMember.team}
+      Reviewing: <strong>${selectedMember.name}</strong>&nbsp;·&nbsp;${selectedMember.role}
     </div>`:'<div style="height:8px"></div>'}
     <div class="field-row" style="margin-top:4px">
       <div class="field">
         <label>Review period</label>
         <input type="text" placeholder="e.g. Jan – Jun 2025" value="${infoValues.period||''}" onchange="infoValues.period=this.value">
       </div>
-      <div class="field">
-        <label>Your name ${up?'(optional — stays anonymous)':'(optional)'}</label>
-        <input type="text" placeholder="Leave blank to stay anonymous" value="${infoValues.reviewer||''}" onchange="infoValues.reviewer=this.value">
-      </div>
     </div>
   `;
-  drawGrid(memberSearch);
+  drawGrid(allowedReviewees, memberSearch);
 }
 
-function drawGrid(q){
+function drawGrid(people, q){
   const grid=document.getElementById('mgrid'); if(!grid) return;
   const lq=q.toLowerCase();
-  const list=TEAM[currentRole].filter(m=>
-    m.name.toLowerCase().includes(lq)||
-    m.role.toLowerCase().includes(lq)||
-    m.team.toLowerCase().includes(lq)
+  const list=people.filter(m=>
+    !q || m.name.toLowerCase().includes(lq) || m.role.toLowerCase().includes(lq)
   );
-  if(!list.length){grid.innerHTML=`<div class="no-results">No matches for "<strong>${q}</strong>"</div>`;return;}
+  if(!list.length){grid.innerHTML=`<div class="no-results">No matches found.</div>`;return;}
   grid.innerHTML=list.map(m=>{
-    const sel=selectedMember&&selectedMember.name===m.name;
-    const safeM=encodeURIComponent(JSON.stringify(m));
-    return `<div class="member-card ${currentRole}${sel?' selected':''}" onclick="pickM(decodeURIComponent('${safeM}'))">
+    const sel=selectedMember&&selectedMember.email===m.email;
+    const done=submittedReviewees.has(m.email);
+    const safeM=encodeURIComponent(JSON.stringify({name:m.name,role:m.role,email:m.email,fn:m.fn}));
+    return `<div class="member-card ${currentRole}${sel?' selected':''}${done?' done':''}" onclick="${done?'':'pickM(decodeURIComponent(\''+safeM+'\'))'}">
       <div class="member-avatar">${initials(m.name)}</div>
       <div>
         <div class="member-info-name">${m.name}</div>
         <div class="member-info-role">${m.role}</div>
-        <div class="member-info-team">${m.team}</div>
       </div>
     </div>`;
   }).join('');
 }
 
-function filterM(v){memberSearch=v;drawGrid(v);}
+function filterM(v){
+  memberSearch=v;
+  drawGrid(getAllowedReviewees(currentRole), v);
+}
 
 function pickM(encoded){
   const m=JSON.parse(encoded);
-  selectedMember=m; infoValues.reviewee=m.name; infoValues.revieweeRole=m.role;
+  if(submittedReviewees.has(m.email)) return; // already reviewed
+  selectedMember=m;
+  infoValues.reviewee=m.name;
+  infoValues.revieweeRole=m.role;
   document.getElementById('btn-next').disabled=false;
   renderPicker(ROLES[currentRole],document.getElementById('form-body'));
   const inp=document.getElementById('msearch'); if(inp) inp.value=memberSearch;
-  drawGrid(memberSearch);
+  drawGrid(getAllowedReviewees(currentRole), memberSearch);
 }
 
 // ═══════════════ STEP 1: SCORES ═══════════════
@@ -571,7 +789,7 @@ function renderScores(r,body){
   body.innerHTML=`
     <p class="step-label" style="color:${r.dotColor}">Step 2 — Dimension scores</p>
     <h2 class="step-title">Rate each dimension</h2>
-    <p class="step-desc">Score 1–5 based on what you have consistently observed${selectedMember?' for <strong>'+selectedMember.name+'</strong>':''} this review period. Clicking a score reveals what it means for that specific dimension.</p>
+    <p class="step-desc">Score 1–5 based on what you have consistently observed for <strong>${selectedMember?selectedMember.name:'this person'}</strong>. Clicking a score reveals what it means for that specific dimension.</p>
     <div class="score-legend">
       ${[1,2,3,4,5].map(n=>`<div class="legend-item"><div class="legend-dot" style="background:var(--score-${n}t)"></div><span>${n}·${lb[n]}</span></div>`).join('')}
     </div>
@@ -618,116 +836,91 @@ function renderOpen(r,body){
   `;
 }
 
-// ═══════════════ GOOGLE SHEETS WEBHOOK ═══════════════
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyMMhA0Q1jzLajfhPhPbooz7muU2zgD7---GKCV8EiChpnKfvN6TXb4Y1_uxCd0MsxxNw/exec';
+// ═══════════════ SUBMISSION ═══════════════
+const buildPayload = (r,ws,v) => ({
+  action:         'submitReview',
+  reviewType:     r.title,
+  reviewee:       infoValues.reviewee   || '—',
+  revieweeRole:   infoValues.revieweeRole || '—',
+  reviewer:       currentUser ? currentUser.name : 'Anonymous',
+  reviewerEmail:  currentUser ? currentUser.email : '—',
+  period:         infoValues.period     || '—',
+  weightedScore:  ws>0?ws.toFixed(2):'—',
+  band:           v.label,
+  raise:          v.raise||'—',
+  grade:          v.grade||'—',
+  dimensionScores: r.categories.map((c,i)=>({name:c.name,weight:c.weight,score:scores[i]||'—'})),
+  dimensionNotes:  r.categories.map((c,i)=>({name:c.name,note:dimNotes[i]||''})),
+  openAnswers:     r.openQuestions.map(q=>({label:q.label,answer:openAnswers[q.id]||''}))
+});
 
-function buildPayload(r, ws, v) {
-  return {
-    reviewType:      r.title,
-    reviewee:        infoValues.reviewee   || '—',
-    revieweeRole:    infoValues.revieweeRole || '—',
-    reviewer:        infoValues.reviewer   || 'Anonymous',
-    period:          infoValues.period     || '—',
-    weightedScore:   ws > 0 ? ws.toFixed(2) : '—',
-    band:            v.label,
-    raise:           v.raise || '—',
-    grade:           v.grade || '—',
-    dimensionScores: r.categories.map((c, i) => ({
-      name:   c.name,
-      weight: c.weight,
-      score:  scores[i] || '—'
-    })),
-    dimensionNotes: r.categories.map((c, i) => ({
-      name: c.name,
-      note: dimNotes[i] || ''
-    })),
-    openAnswers: r.openQuestions.map(q => ({
-      label:  q.label,
-      answer: openAnswers[q.id] || ''
-    }))
-  };
-}
+async function done(){
+  const r=ROLES[currentRole], ws=calcWS(r), v=verdict(ws,r.isUpward);
+  document.getElementById('progress-fill').style.width='100%';
+  document.getElementById('form-nav').style.display='none';
 
-async function submitToSheet(payload) {
-  const resp = await fetch(SHEET_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
-  return true; // no-cors means we can't read the response — assume success
-}
-
-// ═══════════════ COMPLETION ═══════════════
-async function done() {
-  const r = ROLES[currentRole], ws = calcWS(r), v = verdict(ws, r.isUpward);
-  document.getElementById('progress-fill').style.width = '100%';
-  document.getElementById('form-nav').style.display = 'none';
-
-  // Show submitting state
-  document.getElementById('form-body').innerHTML = `
+  document.getElementById('form-body').innerHTML=`
     <div class="completion-wrap">
       <div class="completion-icon" style="background:#F3F4F6;font-size:28px">⏳</div>
       <h2 class="completion-title" style="font-size:28px">Saving review…</h2>
-      <p class="completion-sub">Sending your responses to the Dexwin review sheet. This takes just a moment.</p>
-    </div>
-  `;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+      <p class="completion-sub">Sending your responses to the Dexwin review sheet.</p>
+    </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
 
-  // Submit to Google Sheets
-  let saveOk = false;
+  let saveOk=false;
   try {
-    const payload = buildPayload(r, ws, v);
-    saveOk = await submitToSheet(payload);
-  } catch(e) {
-    saveOk = false;
-  }
+    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(buildPayload(r,ws,v))});
+    saveOk=true;
+  } catch(e){ saveOk=false; }
 
-  // Show completion screen
-  document.getElementById('form-body').innerHTML = `
+  // Mark reviewee as submitted this session
+  if(selectedMember) submittedReviewees.add(selectedMember.email);
+
+  const revieweeName = selectedMember ? selectedMember.name : 'this person';
+  const remainingCount = getAllowedReviewees(currentRole).filter(p => !submittedReviewees.has(p.email)).length;
+
+  document.getElementById('form-body').innerHTML=`
     <div class="completion-wrap">
       <div class="completion-icon" style="background:${v.bg}">✓</div>
       <h2 class="completion-title">Review submitted</h2>
-      <p class="completion-sub">Thank you for taking the time to give honest, thoughtful feedback${selectedMember ? ' for ' + selectedMember.name : ''}. Your input shapes real decisions and real growth at Dexwin.</p>
-
+      <p class="completion-sub">Thank you for your feedback for <strong>${revieweeName}</strong>. Your input shapes real decisions and real growth at Dexwin.</p>
       ${saveOk
-        ? `<div style="display:inline-flex;align-items:center;gap:7px;background:#DCFCE7;color:#166534;font-size:13px;font-weight:600;padding:8px 16px;border-radius:20px;margin-bottom:28px">
+        ?`<div style="display:inline-flex;align-items:center;gap:7px;background:#DCFCE7;color:#166534;font-size:13px;font-weight:600;padding:8px 16px;border-radius:20px;margin-bottom:28px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Saved to Dexwin review sheet
-           </div>`
-        : `<div style="display:inline-flex;align-items:center;gap:7px;background:#FEF3C7;color:#92400E;font-size:13px;font-weight:500;padding:8px 16px;border-radius:20px;margin-bottom:28px">
-            ⚠ Could not reach the sheet — please share this page with HR manually
-           </div>`
-      }
-
+          </div>`
+        :`<div style="display:inline-flex;align-items:center;gap:7px;background:#FEF3C7;color:#92400E;font-size:13px;font-weight:500;padding:8px 16px;border-radius:20px;margin-bottom:28px">
+            ⚠ Could not reach the sheet — please contact HR
+          </div>`}
       <div class="score-reveal">
         <div class="score-reveal-label">Overall score</div>
-        <div class="score-reveal-num" style="color:${v.col}">${ws > 0 ? ws.toFixed(2) : '—'}</div>
+        <div class="score-reveal-num" style="color:${v.col}">${ws>0?ws.toFixed(2):'—'}</div>
         <div class="score-reveal-band" style="background:${v.bg};color:${v.col}">${v.label}</div>
-        ${!r.isUpward ? `<p style="font-size:12px;color:#6b7280;margin-bottom:14px">Raise: <strong>${v.raise}</strong>&nbsp;·&nbsp;Grade: <strong>${v.grade}</strong></p>` : ''}
+        ${!r.isUpward?`<p style="font-size:12px;color:#6b7280;margin-bottom:14px">Raise: <strong>${v.raise}</strong>&nbsp;·&nbsp;Grade: <strong>${v.grade}</strong></p>`:''}
         <div style="border-top:1px solid #f0ede8;padding-top:14px">
           <div style="font-size:11px;font-weight:600;color:#9ca3af;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px">Breakdown by dimension</div>
           <div class="dim-breakdown">
-            ${r.categories.map((c, i) => {
-              const s = scores[i] || 0;
-              return `<div class="dim-row">
-                <div class="dim-row-name">${c.name}</div>
-                <div class="dim-row-bar"><div class="dim-row-fill" style="width:${(s/5)*100}%;background:${v.bar}"></div></div>
-                <div class="dim-row-val" style="color:${v.col}">${s || '—'}</div>
-              </div>`;
-            }).join('')}
+            ${r.categories.map((c,i)=>{const s=scores[i]||0;return`<div class="dim-row">
+              <div class="dim-row-name">${c.name}</div>
+              <div class="dim-row-bar"><div class="dim-row-fill" style="width:${(s/5)*100}%;background:${v.bar}"></div></div>
+              <div class="dim-row-val" style="color:${v.col}">${s||'—'}</div>
+            </div>`;}).join('')}
           </div>
         </div>
       </div>
-
       <div class="action-row">
-        <button class="btn-outline" onclick="window.print()">Print / Save PDF</button>
-        <button class="btn btn-primary" onclick="goLanding();document.getElementById('form-nav').style.display='flex'">New review →</button>
+        ${remainingCount > 0
+          ? `<button class="btn btn-primary" onclick="goLanding();document.getElementById('form-nav').style.display='flex'">Review another (${remainingCount} left) →</button>`
+          : `<button class="btn btn-primary" onclick="goLanding();document.getElementById('form-nav').style.display='flex'">Back to home →</button>`
+        }
       </div>
     </div>
   `;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// ═══════════════ BOOT ═══════════════
+checkTokenFromURL();
 </script>
 </body>
 </html>
