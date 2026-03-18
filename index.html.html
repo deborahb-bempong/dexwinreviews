@@ -63,7 +63,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .topbar-sub{font-size:12px;color:var(--ink3)}
 .progress-wrap{position:sticky;top:58px;z-index:99;height:3px;background:var(--border)}
 .progress-fill{height:100%;width:0%;transition:width .4s ease}
-.form-body{max-width:760px;margin:0 auto;padding:44px 32px 220px}
+.form-body{max-width:760px;margin:0 auto;padding:44px 32px 120px}
 .step-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
 .step-title{font-family:'DM Serif Display',serif;font-size:clamp(24px,4vw,36px);line-height:1.1;margin-bottom:10px}
 .step-desc{font-size:14px;color:var(--ink2);font-weight:300;max-width:540px;line-height:1.75;margin-bottom:32px}
@@ -130,7 +130,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .open-q textarea:focus{border-color:var(--border2);background:var(--surface)}
 
 /* NAV */
-.form-nav{position:fixed;bottom:60px;left:0;right:0;z-index:200;background:rgba(250,249,247,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 48px;display:flex;align-items:center;justify-content:space-between}
+.form-nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(250,249,247,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:14px 48px;display:flex;align-items:center;justify-content:space-between}
 .btn{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:11px 26px;border-radius:9px;cursor:pointer;transition:all .14s;border:none;letter-spacing:.01em}
 .btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--ink2)}
 .btn-ghost:hover{background:var(--paper)}
@@ -166,7 +166,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 
 @media(max-width:600px){
   .landing-hero,.role-grid,.form-topbar,.form-nav,.landing-footer{padding-left:18px;padding-right:18px}
-  .form-body{padding:28px 18px 220px}
+  .form-body{padding:28px 18px 100px}
   .field-row{grid-template-columns:1fr}
   .score-btn .score-lbl{display:none}
   .member-grid{grid-template-columns:1fr}
@@ -619,7 +619,7 @@ function renderOpen(r,body){
 }
 
 // ═══════════════ GOOGLE SHEETS WEBHOOK ═══════════════
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxM8pM_x9vcwCuM9zztc1u8LKQ36xqvjHE-ZYKQ9KGHm_PciEJaRjkrEHXXPXrAE_XeUw/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyMMhA0Q1jzLajfhPhPbooz7muU2zgD7---GKCV8EiChpnKfvN6TXb4Y1_uxCd0MsxxNw/exec';
 
 function buildPayload(r, ws, v) {
   return {
