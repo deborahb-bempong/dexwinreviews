@@ -509,11 +509,22 @@ function signOut() {
 }
 
 // ═══════════════ TEAM FILTERING ═══════════════
+// HR accounts that can see all members across all functions
+const HR_EMAILS = new Set(['peeplehrconsult@gmail.com']);
+
 // Returns the list of people this user is allowed to review for a given form type
 function getAllowedReviewees(formType) {
   if (!currentUser) return [];
   const userEmail = currentUser.email.toLowerCase();
   const isManager = MANAGERS.has(userEmail);
+
+  // HR override — sees all staff in the selected function, excluding themselves
+  if (HR_EMAILS.has(userEmail)) {
+    if (formType === 'upward') {
+      return ORG.filter(p => MANAGERS.has(p.email.toLowerCase()) && p.email.toLowerCase() !== userEmail);
+    }
+    return ORG.filter(p => p.fn === formType && p.email.toLowerCase() !== userEmail);
+  }
 
   if (formType === 'upward') {
     // Everyone sees only their own direct manager
@@ -523,19 +534,21 @@ function getAllowedReviewees(formType) {
   }
 
   if (isManager) {
-    // Leaders see only their own direct reports (for peer/function reviews)
+    // Leaders see only their own direct reports that match the selected function
     return ORG.filter(p =>
       p.reportsTo && p.reportsTo.toLowerCase() === userEmail &&
-      p.email.toLowerCase() !== userEmail
+      p.email.toLowerCase() !== userEmail &&
+      p.fn === formType
     );
   }
 
-  // Regular staff — see teammates with the same direct manager, excluding self
+  // Regular staff — see teammates with the same direct manager AND same function, excluding self
   return ORG.filter(p =>
     p.reportsTo &&
     currentUser.reportsTo &&
     p.reportsTo.toLowerCase() === currentUser.reportsTo.toLowerCase() &&
-    p.email.toLowerCase() !== userEmail
+    p.email.toLowerCase() !== userEmail &&
+    p.fn === formType
   );
 }
 
