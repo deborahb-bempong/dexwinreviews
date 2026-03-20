@@ -13,6 +13,7 @@
   --eng-h:#0c4a8a;     --eng-l:#e0f0ff;     --eng-m:#1d6fc4;
   --design-h:#8a0e4a;  --design-l:#ffe0f0;  --design-m:#c4256e;
   --upward-h:#7a3800;  --upward-l:#fff4e0;  --upward-m:#e07c00;
+  --open-h:#065f46;    --open-l:#ecfdf5;    --open-m:#10b981;
   --score-1:#fde8e8; --score-1t:#991b1b;
   --score-2:#fef3c7; --score-2t:#92400e;
   --score-3:#dbeafe; --score-3t:#1e40af;
@@ -79,6 +80,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .role-card.engineering .role-count{background:var(--eng-l);color:var(--eng-h)}
 .role-card.design .role-count{background:var(--design-l);color:var(--design-h)}
 .role-card.upward .role-count{background:var(--upward-l);color:var(--upward-h)}
+.role-card.open::before{background:var(--open-m)}
+.role-card.open .role-icon{background:var(--open-l)}
+.role-card.open .role-count{background:var(--open-l);color:var(--open-h)}
+.role-card.open.locked{opacity:0.5;cursor:not-allowed}
+.role-card.open.locked:hover{transform:none;box-shadow:none}
+.role-card.open.locked::before{opacity:0}
 .landing-footer{border-top:1px solid var(--border);padding:18px 48px;font-size:12px;color:var(--ink3);display:flex;gap:20px;flex-wrap:wrap}
 
 /* ── FORM PAGE ── */
@@ -311,6 +318,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
       <div class="role-desc">Rate the leader you report to — responses are fully anonymous</div>
       <div class="role-count" id="lc-upward"></div>
     </div>
+    <div class="role-card open" id="open-review-card" onclick="startForm('open')" style="display:none">
+      <div class="role-icon">🌐</div>
+      <div class="role-name">Open Review</div>
+      <div class="role-desc">Review anyone across Dexwin — available after completing your team reviews</div>
+      <div class="role-count" id="lc-open"></div>
+    </div>
   </div>
   <div class="landing-footer">
     <span>Responses are confidential and used only for calibration</span>
@@ -509,8 +522,8 @@ function signOut() {
 }
 
 // ═══════════════ TEAM FILTERING ═══════════════
-// HR accounts that can see all members across all functions
-const HR_EMAILS = new Set(['peeplehrconsult@gmail.com']);
+// HR and CEO accounts that can see all members across all functions
+const HR_EMAILS = new Set(['peeplehrconsult@gmail.com', 'kelvin.tyron@dexwin.net']);
 
 // Returns the list of people this user is allowed to review for a given form type
 function getAllowedReviewees(formType) {
@@ -518,10 +531,13 @@ function getAllowedReviewees(formType) {
   const userEmail = currentUser.email.toLowerCase();
   const isManager = MANAGERS.has(userEmail);
 
-  // HR override — sees all staff in the selected function, excluding themselves
+  // HR/CEO override — sees all staff in the selected function, excluding themselves
   if (HR_EMAILS.has(userEmail)) {
     if (formType === 'upward') {
       return ORG.filter(p => MANAGERS.has(p.email.toLowerCase()) && p.email.toLowerCase() !== userEmail);
+    }
+    if (formType === 'open') {
+      return ORG.filter(p => p.email.toLowerCase() !== userEmail);
     }
     return ORG.filter(p => p.fn === formType && p.email.toLowerCase() !== userEmail);
   }
@@ -531,6 +547,11 @@ function getAllowedReviewees(formType) {
     if (!currentUser.reportsTo) return []; // CEO has no manager
     const mgr = getPersonByEmail(currentUser.reportsTo);
     return mgr ? [mgr] : [];
+  }
+
+  if (formType === 'open') {
+    // Open review — all staff except self and already-reviewed people
+    return ORG.filter(p => p.email.toLowerCase() !== userEmail);
   }
 
   if (isManager) {
@@ -569,10 +590,6 @@ function showLanding() {
 
   document.getElementById('user-email-display').textContent = currentUser.email;
 
-  // Update landing subtitle
-  document.getElementById('landing-sub').textContent =
-    `Welcome, ${currentUser.name.split(' ')[0]}. You can review your direct teammates and your leader below.`;
-
   // Count reviewees per form type
   const counts = { product: 0, engineering: 0, design: 0, upward: 0 };
   ['product','engineering','design'].forEach(ft => {
@@ -580,17 +597,59 @@ function showLanding() {
   });
   counts.upward = getAllowedReviewees('upward').length;
 
-  document.getElementById('lc-product').textContent     = counts.product + ' to review';
-  document.getElementById('lc-engineering').textContent = counts.engineering + ' to review';
-  document.getElementById('lc-design').textContent      = counts.design + ' to review';
+  // Check if all team reviews are done (all direct teammates submitted)
+  const teamReviewees = ['product','engineering','design']
+    .flatMap(ft => getAllowedReviewees(ft))
+    .filter((p, i, arr) => arr.findIndex(x => x.email === p.email) === i); // dedupe
+  const allTeamDone = teamReviewees.length > 0 &&
+    teamReviewees.every(p => submittedReviewees.has(p.email));
+
+  // Open review — show always for HR/CEO, otherwise only when team reviews done
+  const isFullAccess = HR_EMAILS.has(currentUser.email.toLowerCase());
+  const openCard = document.getElementById('open-review-card');
+  const openCount = getAllowedReviewees('open')
+    .filter(p => !submittedReviewees.has(p.email)).length;
+
+  if (isFullAccess || allTeamDone) {
+    openCard.style.display = '';
+    openCard.classList.remove('locked');
+    openCard.setAttribute('onclick', "startForm('open')");
+    document.getElementById('lc-open').textContent = openCount + ' people · All Dexwin';
+  } else if (teamReviewees.length > 0) {
+    // Show locked state — team reviews not yet done
+    openCard.style.display = '';
+    openCard.classList.add('locked');
+    openCard.setAttribute('onclick', "showOpenLocked()");
+    const remaining = teamReviewees.filter(p => !submittedReviewees.has(p.email)).length;
+    document.getElementById('lc-open').textContent = `Complete ${remaining} team review${remaining > 1 ? 's' : ''} to unlock`;
+  } else {
+    openCard.style.display = 'none';
+  }
+
+  document.getElementById('lc-product').textContent     = counts.product > 0 ? counts.product + ' to review' : 'None assigned';
+  document.getElementById('lc-engineering').textContent = counts.engineering > 0 ? counts.engineering + ' to review' : 'None assigned';
+  document.getElementById('lc-design').textContent      = counts.design > 0 ? counts.design + ' to review' : 'None assigned';
   document.getElementById('lc-upward').textContent      = counts.upward > 0 ? counts.upward + ' leader · Anonymous' : 'Not applicable';
 
-  // Hide cards with 0 reviewees
+  // Update subtitle
+  const firstName = currentUser.name.split(' ')[0];
+  document.getElementById('landing-sub').textContent =
+    allTeamDone || isFullAccess
+      ? `Welcome, ${firstName}. Your team reviews are complete — you can now also review anyone at Dexwin.`
+      : `Welcome, ${firstName}. Complete your team reviews first, then unlock the open review.`;
+
+  // Hide function cards with 0 reviewees
   const grid = document.getElementById('role-grid');
-  grid.querySelectorAll('.role-card').forEach(card => {
+  grid.querySelectorAll('.role-card:not(.open)').forEach(card => {
     const type = card.classList[1];
-    card.style.display = counts[type] === 0 ? 'none' : '';
+    if (type && counts[type] !== undefined) {
+      card.style.display = counts[type] === 0 ? 'none' : '';
+    }
   });
+}
+
+function showOpenLocked() {
+  alert('Complete all your direct team reviews first to unlock the open review.');
 }
 
 function goLanding() {
@@ -697,6 +756,25 @@ const ROLES = {
       {id:'other',     label:'Any other feedback you would like them to receive',hint:'Anything important not covered above…'},
     ],
   },
+
+  open:{
+    title:'Open Peer Review',dotColor:'#10b981',
+    accent:'--open-m',accentH:'--open-h',accentL:'--open-l',
+    isOpen:true,
+    categories:[
+      {name:'Quality of Work',sub:'Output quality, attention to detail, meeting the bar',weight:20,anchors:['Work frequently falls short of expectations; significant rework needed.','Work is developing; meets some but not all quality expectations.','Consistently produces good quality work that meets the standard.','Work regularly exceeds expectations; raises the bar for others.','Exceptional quality that sets the benchmark across the organisation.']},
+      {name:'Reliability & Delivery',sub:'Meeting commitments, dependability, follow-through',weight:20,anchors:['Commitments are frequently missed; follow-through is unreliable.','Sometimes delivers but consistency is lacking.','Reliably meets commitments; people can count on them.','Consistently delivers and proactively manages risks to commitments.','Sets the standard for reliability; others feel fully confident depending on them.']},
+      {name:'Collaboration & Communication',sub:'Working with others, clarity, responsiveness',weight:20,anchors:['Rarely collaborates effectively; communication causes friction.','Some collaboration but gaps in communication are common.','Works well with others; communicates clearly and responsively.','A sought-after collaborator; communication elevates the whole team.','Exceptional at collaboration; brings out the best in everyone they work with.']},
+      {name:'Initiative & Impact',sub:'Proactivity, going beyond the brief, creating value',weight:20,anchors:['Rarely takes initiative; primarily reactive.','Shows some initiative but impact is limited.','Regularly takes initiative and delivers meaningful impact.','Proactively identifies and acts on opportunities that create real value.','Defines what initiative looks like; their impact is felt across the organisation.']},
+      {name:'Values & Culture',sub:'Living Dexwin values, professionalism, team contribution',weight:20,anchors:['Behaviour sometimes conflicts with team values or culture.','Generally professional but consistency with values varies.','Consistently demonstrates Dexwin values; a positive team presence.','A strong cultural contributor; actively reinforces team values.','Embodies and elevates the culture; others grow and improve around them.']},
+    ],
+    openQuestions:[
+      {id:'strengths',   label:'Key strengths',hint:'What do they do particularly well? Specific examples are most useful…'},
+      {id:'development', label:'Development areas',hint:'What would make them even more effective?…'},
+      {id:'collaboration',label:'How has working with this person impacted you or your team?',hint:'Positive or constructive — be honest and specific…'},
+      {id:'other',       label:'Anything else you would like them to know',hint:'Any additional feedback not covered above…'},
+    ],
+  },
 };
 
 // ═══════════════ FORM STATE ═══════════════
@@ -775,7 +853,9 @@ function renderPicker(r,body){
     <h2 class="step-title">${up?'Select your leader':'Select a team member'}</h2>
     <p class="step-desc">${up
       ? 'Your response is completely anonymous — it will never be shown to your leader individually.'
-      : 'Choose a colleague to review. You can only review members of your direct team.'
+      : r.isOpen
+        ? 'Choose anyone at Dexwin to review. People you have already reviewed are marked and cannot be submitted again.'
+        : 'Choose a colleague to review. You can only review members of your direct team.'
     }</p>
     ${up?`<div class="anon-banner">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#92400E" stroke-width="1.5"/><path d="M8 7v5M8 5v.5" stroke="#92400E" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -933,6 +1013,7 @@ async function done(){
 
   const revieweeName = selectedMember ? selectedMember.name : 'this person';
   const remainingCount = getAllowedReviewees(currentRole).filter(p => !submittedReviewees.has(p.email)).length;
+  const showRaiseGrade = !r.isUpward && !r.isOpen;
 
   document.getElementById('form-body').innerHTML=`
     <div class="completion-wrap">
@@ -951,7 +1032,7 @@ async function done(){
         <div class="score-reveal-label">Overall score</div>
         <div class="score-reveal-num" style="color:${v.col}">${ws>0?ws.toFixed(2):'—'}</div>
         <div class="score-reveal-band" style="background:${v.bg};color:${v.col}">${v.label}</div>
-        ${!r.isUpward?`<p style="font-size:12px;color:#6b7280;margin-bottom:14px">Raise: <strong>${v.raise}</strong>&nbsp;·&nbsp;Grade: <strong>${v.grade}</strong></p>`:''}
+        ${showRaiseGrade?`<p style="font-size:12px;color:#6b7280;margin-bottom:14px">Raise: <strong>${v.raise}</strong>&nbsp;·&nbsp;Grade: <strong>${v.grade}</strong></p>`:''}
         <div style="border-top:1px solid #f0ede8;padding-top:14px">
           <div style="font-size:11px;font-weight:600;color:#9ca3af;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px">Breakdown by dimension</div>
           <div class="dim-breakdown">
