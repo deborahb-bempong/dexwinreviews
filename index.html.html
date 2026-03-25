@@ -580,11 +580,10 @@ const TOTAL_STEPS=3;
 function getPersonByEmail(email){return ORG.find(p=>p.email.toLowerCase()===email.toLowerCase());}
 
 // ═══════════════ MAGIC LINK ═══════════════
-async function requestMagicLink(){
+function requestMagicLink(){
   const emailInput=document.getElementById('auth-email');
   const email=emailInput.value.trim().toLowerCase();
   const errBox=document.getElementById('auth-error');
-  const btn=document.getElementById('auth-btn');
   errBox.style.display='none';
   if(!email){showAuthError('Please enter your email address.');return;}
   if(!email.endsWith('@dexwin.net')&&!email.endsWith('@gmail.com')&&!email.endsWith('@live.com')){
@@ -592,17 +591,19 @@ async function requestMagicLink(){
   }
   const person=getPersonByEmail(email);
   if(!person){showAuthError('This email is not registered in the Dexwin team directory. Please contact HR.');return;}
-  btn.disabled=true; btn.textContent='Sending…';
-  try{
-    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'sendMagicLink',email,name:person.name})});
-  }catch(e){}
+
+  // Show sent screen immediately — fire request in background, never block
   pendingEmail=email;
-  btn.disabled=false; btn.textContent='Send magic link →';
   document.getElementById('auth-screen').style.display='none';
   const ls=document.getElementById('link-sent');
   ls.style.display='flex';
   document.getElementById('sent-email-display').textContent=email;
+
+  fetch(SHEET_URL,{
+    method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'sendMagicLink',email:email,name:person.name})
+  }).catch(function(){});
 }
 function showAuthError(msg){const e=document.getElementById('auth-error');e.textContent=msg;e.style.display='block';}
 function resendLink(){document.getElementById('link-sent').style.display='none';document.getElementById('auth-screen').style.display='flex';document.getElementById('auth-email').value=pendingEmail;}
