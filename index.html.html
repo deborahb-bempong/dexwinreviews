@@ -388,6 +388,8 @@ const ORG = [
   {email:'luke.boateng@dexwin.net',           name:'Luke Boateng Agyenim',      role:'Designer – NSS', reportsTo:'henry.amihere@dexwin.net',       fn:'design'},
   {email:'nenyo.anaglo@dexwin.net',           name:'Nenyo Anaglo Kwame',        role:'Business Associate', reportsTo:'kelvin.tyron@dexwin.net',   fn:'admin'},
   {email:'peeplehrconsult@gmail.com',         name:'Deborah Bempong',           role:'HR Admin',       reportsTo:'kelvin.tyron@dexwin.net',        fn:'admin'},
+  {email:'kelvin.tyron@gmail.com',            name:'Kelvin Tyron (Test Lead)',  role:'Engineer Lead',  reportsTo:'kelvin.tyron@dexwin.net',        fn:'engineering'},
+  {email:'kelvin.tyron@live.com',             name:'Kelvin Tyron (Test Staff)', role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',        fn:'design'},
 ];
 
 // People who have direct reports
@@ -412,7 +414,7 @@ async function requestMagicLink() {
   errBox.style.display = 'none';
 
   if (!email) { showAuthError('Please enter your email address.'); return; }
-  if (!email.endsWith('@dexwin.net') && !email.endsWith('@gmail.com')) { showAuthError('Only @dexwin.net email addresses are accepted.'); return; }
+  if (!email.endsWith('@dexwin.net') && !email.endsWith('@gmail.com') && !email.endsWith('@live.com')) { showAuthError('Only @dexwin.net email addresses are accepted.'); return; }
 
   const person = getPersonByEmail(email);
   if (!person) { showAuthError('This email is not registered in the Dexwin team directory. Please contact HR.'); return; }
@@ -525,6 +527,11 @@ function signOut() {
 // HR and CEO accounts that can see all members across all functions
 const HR_EMAILS = new Set(['peeplehrconsult@gmail.com', 'kelvin.tyron@dexwin.net']);
 
+// Co-manager mapping — email → the manager whose direct reports they also see
+const CO_MANAGER_OF = {
+  'kelvin.tyron@gmail.com': 'alvinseyram.ofori@dexwin.net',
+};
+
 // Returns the list of people this user is allowed to review for a given form type
 function getAllowedReviewees(formType) {
   if (!currentUser) return [];
@@ -554,10 +561,12 @@ function getAllowedReviewees(formType) {
     return ORG.filter(p => p.email.toLowerCase() !== userEmail);
   }
 
-  if (isManager) {
-    // Leaders see only their own direct reports that match the selected function
+  if (isManager || CO_MANAGER_OF[userEmail]) {
+    // Leaders / co-leads see direct reports of themselves OR their co-managed team
+    const managedAs = CO_MANAGER_OF[userEmail] || userEmail;
     return ORG.filter(p =>
-      p.reportsTo && p.reportsTo.toLowerCase() === userEmail &&
+      p.reportsTo &&
+      (p.reportsTo.toLowerCase() === userEmail || p.reportsTo.toLowerCase() === managedAs) &&
       p.email.toLowerCase() !== userEmail &&
       p.fn === formType
     );
