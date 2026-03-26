@@ -340,7 +340,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 
 <script>
 // ═══════════════ CONFIG ═══════════════
-const SHEET_URL='https://script.google.com/macros/s/AKfycbwVwBMqCe7lU5YeQfrd9xQiv9ghAdPHm9BgoVHGiGIeRyVdYnekRcG6obtErU_db2UOJg/exec';
+const SHEET_URL='https://script.google.com/macros/s/AKfycbxetp7GI40jIJP9k19GIAWpEd4q_Y7LtghlQSWpiNSrq9c1_c5eamBVwS-bMug7HmaUVw/exec';
 
 // ═══════════════ ORG DATA ═══════════════
 const ORG=[
@@ -781,7 +781,7 @@ function updateNC(){
   const r=ROLES[currentRole],nc=document.getElementById('nav-center');
   if(currentStep===1){
     const ws=calcWS(r),rated=Object.values(scores).filter(Boolean).length;
-    if(ws>0){nc.innerHTML=`<span class="nav-score-preview"><span class="nav-score-num">${ws.toFixed(2)}</span>&nbsp;/5.00&nbsp;·&nbsp;${rated}/${r.categories.length} rated</span>`;return;}
+    if(ws>0){nc.innerHTML=`<span class="nav-score-preview"><span class="nav-score-num">${ws.toFixed(2)}</span>&nbsp;/5.00&nbsp;&nbsp;${rated}/${r.categories.length} rated</span>`;return;}
   }
   nc.textContent=`Step ${currentStep+1} of ${TOTAL_STEPS}`;
 }
@@ -795,13 +795,10 @@ function renderPicker(r,body){
   let reviewerTypeHtml='';
   if(selectedMember&&currentUser&&!up&&!io){
     const rt=getReviewerType(currentUser.email,selectedMember.email);
-    const revieweeIsLdr=isLeader(selectedMember.email.toLowerCase());
-    const contrib=getContributionWeight(rt,selectedMember.email);
     const colors={leader:'#DCFCE7;color:#166534',peer:'#DBEAFE;color:#1E40AF',subordinate:'#FEF3C7;color:#92400E'};
     const labels={leader:'You are reviewing as their Manager',peer:'You are reviewing as a Peer',subordinate:'You are reviewing as their Subordinate'};
-    reviewerTypeHtml=`<div style="background:${colors[rt]};border-radius:9px;padding:10px 14px;font-size:13px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px">
+    reviewerTypeHtml=`<div style="background:${colors[rt]};border-radius:9px;padding:10px 14px;font-size:13px;font-weight:600;margin-bottom:16px;display:inline-flex;align-items:center;gap:8px">
       <span>${labels[rt]}</span>
-      <span style="font-weight:400;opacity:.8"> · This review counts as <strong>${contrib}%</strong> of ${selectedMember.name.split(' ')[0]}'s final score ${revieweeIsLdr?'(Leader: 50% manager, 25% peer, 25% subordinate)':'(Non-leader: 50% manager, 50% peer)'}</span>
     </div>`;
   }
 
@@ -810,7 +807,7 @@ function renderPicker(r,body){
     <h2 class="step-title">${up?'Select your leader':io?'Select anyone at Dexwin':'Select a team member'}</h2>
     <p class="step-desc">${up?'Your response is completely anonymous — it will never be shown to your leader individually.':
       io?'Choose any Dexwin colleague to review. People already reviewed are marked.':
-      'Choose the person you are reviewing. Your relationship to them determines how their final score is weighted.'}</p>
+      'Choose the person you are reviewing.'}</p>
     ${up?`<div class="anon-banner">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#92400E" stroke-width="1.5"/><path d="M8 7v5M8 5v.5" stroke="#92400E" stroke-width="1.5" stroke-linecap="round"/></svg>
       <span><strong>Your anonymity is protected.</strong> Responses are aggregated before being shared.</span>
@@ -973,7 +970,7 @@ async function done(){
   const rtLabels={'subordinate (upward)':'Upward Review (anonymous)',open:'Open Peer Review',leader:'Manager Review',peer:'Peer Review',subordinate:'Subordinate Review'};
   const rtKey=r.isUpward?'subordinate (upward)':r.isOpen?'open':reviewerType;
   const rtBadge=`<div style="background:${rtColors[reviewerType]||'#F3F4F6;color:#374151'};display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:16px">
-    ${rtLabels[rtKey]||'Peer Review'}${!r.isUpward&&!r.isOpen?` · Counts as ${contributionWeight}% of final score`:''}
+    ${rtLabels[rtKey]||'Peer Review'}
   </div>`;
 
   document.getElementById('form-body').innerHTML=`
