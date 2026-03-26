@@ -601,7 +601,7 @@ function requestMagicLink(){
 
   fetch(SHEET_URL,{
     method:'POST',mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'text/plain'},
     body:JSON.stringify({action:'sendMagicLink',email:email,name:person.name})
   }).catch(function(){});
 }
@@ -949,7 +949,7 @@ async function done(){
 
   let saveOk=false;
   try{
-    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
     saveOk=true;
   }catch(e){}
 
