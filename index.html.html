@@ -371,15 +371,11 @@ const ORG=[
   {email:'andrew.aidoo@dexwin.net',           name:"Andrew O'Hara Aidoo",       role:'Designer',       reportsTo:'henry.amihere@dexwin.net',         fn:'design'},
   {email:'luke.boateng@dexwin.net',           name:'Luke Boateng Agyenim',      role:'Designer – NSS', reportsTo:'henry.amihere@dexwin.net',         fn:'design'},
   {email:'nenyo.anaglo@dexwin.net',           name:'Nenyo Anaglo Kwame',        role:'Business Associate',reportsTo:'kelvin.tyron@dexwin.net',       fn:'admin'},
-  // Test accounts
-  {email:'peeplehrconsult@gmail.com',         name:'Deborah Bempong',           role:'HR Admin',       reportsTo:'kelvin.tyron@dexwin.net',          fn:'admin'},
-  {email:'kelvin.tyron@gmail.com',            name:'Kelvin Tyron (Test Lead)',  role:'Engineer Lead',  reportsTo:'kelvin.tyron@dexwin.net',          fn:'engineering'},
-  {email:'kelvin.tyron@live.com',             name:'Kelvin Tyron (Test Staff)', role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',          fn:'design'},
 ];
 
 const MANAGERS=new Set(ORG.map(p=>p.reportsTo).filter(Boolean));
-const HR_EMAILS=new Set(['peeplehrconsult@gmail.com','kelvin.tyron@dexwin.net']);
-const CO_MANAGER_OF={'kelvin.tyron@gmail.com':'alvinseyram.ofori@dexwin.net'};
+const HR_EMAILS=new Set(['kelvin.tyron@dexwin.net']);
+const CO_MANAGER_OF={};
 
 // ═══════════════ REVIEWER TYPE LOGIC ═══════════════
 // Determines the reviewer's relationship to the reviewee for weighting purposes
@@ -586,7 +582,7 @@ function requestMagicLink(){
   const errBox=document.getElementById('auth-error');
   errBox.style.display='none';
   if(!email){showAuthError('Please enter your email address.');return;}
-  if(!email.endsWith('@dexwin.net')&&!email.endsWith('@gmail.com')&&!email.endsWith('@live.com')){
+  if(!email.endsWith('@dexwin.net')){
     showAuthError('Only @dexwin.net email addresses are accepted.');return;
   }
   const person=getPersonByEmail(email);
