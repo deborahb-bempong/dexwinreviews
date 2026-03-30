@@ -354,9 +354,9 @@ const ORG=[
   {email:'emmanuel.amewu@dexwin.net',         name:'Amewu Emmanuel Mensah',     role:'Engineer – NSS', reportsTo:'alvinseyram.ofori@dexwin.net',     fn:'engineering'},
   {email:'ernest.yoyowah@dexwin.net',         name:'Ernest Yoyowah',            role:'Engineer',       reportsTo:'yakubu.alhassan@dexwin.net',       fn:'engineering'},
   {email:'samuel.ackon@dexwin.net',           name:'Samuel Ackon',              role:'Engineer',       reportsTo:'yakubu.alhassan@dexwin.net',       fn:'engineering'},
-  {email:'nanaadjoi.anim@dexwin.net',         name:'Nana Adjoa Anim',           role:'PM Lead',        reportsTo:'kelvin.tyron@dexwin.net',          fn:'product'},
-  {email:'theophilus.arthur@dexwin.net',      name:'Theophilus Arthur',         role:'PM',             reportsTo:'nanaadjoi.anim@dexwin.net',        fn:'product'},
-  {email:'andrew.antwi-addo@dexwin.net',      name:'Andrew Antwi-Addo',         role:'Designer',       reportsTo:'nanaadjoi.anim@dexwin.net',        fn:'product'},
+  {email:'nanaadjoa.anim@dexwin.net',         name:'Nana Adjoa Anim',           role:'PM Lead',        reportsTo:'kelvin.tyron@dexwin.net',          fn:'product'},
+  {email:'theophilus.arthur@dexwin.net',      name:'Theophilus Arthur',         role:'PM',             reportsTo:'nanaadjoa.anim@dexwin.net',        fn:'product'},
+  {email:'andrew.antwi-addo@dexwin.net',      name:'Andrew Antwi-Addo',         role:'Designer',       reportsTo:'nanaadjoa.anim@dexwin.net',        fn:'product'},
   {email:'wilson.addo@dexwin.net',            name:'Wilson Addo',               role:'Designer Lead',  reportsTo:'kelvin.tyron@dexwin.net',          fn:'design'},
   {email:'isaac.anane@dexwin.net',            name:'Isaac Osei Anane',          role:'Designer',       reportsTo:'wilson.addo@dexwin.net',           fn:'design'},
   {email:'nanakojo.simmons@dexwin.net',       name:'Nana Kojo Simmons',         role:'Designer',       reportsTo:'wilson.addo@dexwin.net',           fn:'design'},
@@ -368,7 +368,7 @@ const ORG=[
   {email:'evans.osabutey@dexwin.net',         name:'Evans Narh',                role:'Designer',       reportsTo:'kwabena.safo@dexwin.net',          fn:'design'},
   {email:'henry.amihere@dexwin.net',          name:'Henry Amihere',             role:'Designer Lead',  reportsTo:'kelvin.tyron@dexwin.net',          fn:'design'},
   {email:'emmanuel.amexo@dexwin.net',         name:'Emmanuel Amexo',            role:'Designer',       reportsTo:'henry.amihere@dexwin.net',         fn:'design'},
-  {email:'andrew.aidoo@dexwin.net',           name:"Andrew O'Hara Aidoo",       role:'Designer',       reportsTo:'henry.amihere@dexwin.net',         fn:'design'},
+  {email:'andrew.aidoo@dexwin.net',           name:"Andrew O\u2019Hara Aidoo",       role:'Designer',       reportsTo:'henry.amihere@dexwin.net',         fn:'design'},
   {email:'luke.boateng@dexwin.net',           name:'Luke Boateng Agyenim',      role:'Designer – NSS', reportsTo:'henry.amihere@dexwin.net',         fn:'design'},
   {email:'nenyo.anaglo@dexwin.net',           name:'Nenyo Anaglo Kwame',        role:'Business Associate',reportsTo:'kelvin.tyron@dexwin.net',       fn:'admin'},
 ];
@@ -833,15 +833,23 @@ function drawGrid(people,q){
   const lq=q.toLowerCase();
   const list=people.filter(m=>!q||m.name.toLowerCase().includes(lq)||m.role.toLowerCase().includes(lq));
   if(!list.length){grid.innerHTML=`<div class="no-results">No matches found.</div>`;return;}
-  grid.innerHTML=list.map(m=>{
+  grid.innerHTML=list.map((m,idx)=>{
     const sel=selectedMember&&selectedMember.email===m.email;
     const done=submittedReviewees.has(m.email);
-    const safeM=encodeURIComponent(JSON.stringify({name:m.name,role:m.role,email:m.email,fn:m.fn}));
-    return `<div class="member-card ${currentRole}${sel?' selected':''}${done?' done':''}" onclick="${done?'':'pickM(decodeURIComponent(\''+safeM+'\'))'}">
+    return `<div class="member-card ${currentRole}${sel?' selected':''}${done?' done':''}" data-idx="${idx}" onclick="${done?'':'handlePickM(this)'}">
       <div class="member-avatar">${initials(m.name)}</div>
       <div><div class="member-info-name">${m.name}</div><div class="member-info-role">${m.role}</div></div>
     </div>`;
   }).join('');
+  // Store the list on the grid element so handlePickM can access it safely
+  grid._people=list;
+}
+function handlePickM(el){
+  const grid=document.getElementById('mgrid');
+  const idx=parseInt(el.getAttribute('data-idx'));
+  const m=grid._people[idx];
+  if(!m||submittedReviewees.has(m.email)) return;
+  pickM(JSON.stringify({name:m.name,role:m.role,email:m.email,fn:m.fn}));
 }
 function filterM(v){memberSearch=v;drawGrid(getAllowedReviewees(currentRole),v);}
 function pickM(encoded){
